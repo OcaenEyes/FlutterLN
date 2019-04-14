@@ -31,7 +31,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     height: 200,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage('http://www.deskier.com/uploads/allimg/160817/1-160QH13515.jpg'),
+                        image: NetworkImage('http://pic1.win4000.com/wallpaper/2/56efc3602cec4.jpg'),
                         
                         fit: BoxFit.cover,
 
@@ -53,7 +53,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage('http://b.zol-img.com.cn/desk/bizhi/image/4/1920x1080/1395366007267.jpg'),
+                        image: NetworkImage('https://img.52z.com/upload/news/image/20180131/20180131091324_16839.jpg'),
                      
                         fit: BoxFit.cover,
 
@@ -71,7 +71,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     // color: Colors.green,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage('http://attachments.gfan.com/forum/201503/14/02541368qtpd7hqddp43np.jpg'),
+                        image: NetworkImage('http://img15.3lian.com/2015/h1/280/d/14.jpg'),
                         
                         fit: BoxFit.cover,
 
@@ -224,7 +224,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(4.0)),
                       image: DecorationImage(
-                        image: NetworkImage('http://www.deskier.com/uploads/allimg/160817/1-160QH13515.jpg'),
+                        image: NetworkImage('https://img.52z.com/upload/news/image/20180131/20180131091324_16839.jpg'),
                         fit: BoxFit.cover,
 
                       ),
@@ -250,7 +250,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(4.0)),
                             image: DecorationImage(
-                              image: NetworkImage('http://attachments.gfan.com/forum/201503/14/02541368qtpd7hqddp43np.jpg'),
+                              image: NetworkImage('http://img15.3lian.com/2015/h1/280/d/14.jpg'),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -265,7 +265,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             borderRadius: BorderRadius.all(Radius.circular(4.0)),
                             image: DecorationImage(
                               
-                              image: NetworkImage('http://b.zol-img.com.cn/desk/bizhi/image/4/1920x1080/1395366007267.jpg'),
+                              image: NetworkImage('http://pic1.win4000.com/wallpaper/2/56efc3602cec4.jpg'),
                               fit: BoxFit.cover,
                             ),
                           ),
