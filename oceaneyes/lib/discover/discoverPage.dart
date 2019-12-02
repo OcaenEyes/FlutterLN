@@ -31,53 +31,59 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
     {
       "title": "卡片二",
       "imageUrl": "assets/images/bg.jpg",
-      "description": "这是第一个卡片"
+      "description": "这是第二个卡片"
     },
     {
       "title": "卡片三",
       "imageUrl": "assets/images/bg.jpg",
-      "description": "这是第一个卡片"
+      "description": "这是第三个卡片"
     },
     {
       "title": "卡片四",
       "imageUrl": "assets/images/bg.jpg",
-      "description": "这是第一个卡片"
+      "description": "这是第四个卡片"
     },
     {
       "title": "卡片五",
       "imageUrl": "assets/images/bg.jpg",
-      "description": "这是第一个卡片"
+      "description": "这是第五个卡片"
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: new Text("发现"),
-      ),
-      body: new ListView(
-        children: discoverData.map((discoverCard) {
-          return new Card(
-            margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: new Column(
-              children: <Widget>[
-                new AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: new Image.asset(
-                    discoverCard["imageUrl"],
-                    fit: BoxFit.fill,
+        appBar: AppBar(
+          title: new Text("发现"),
+        ),
+        body: new ListView(children: <Widget>[
+          new Container(
+            height: 530,
+            child: new ListView(
+              // scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: discoverData.map((discoverCard) {
+                return new Card(
+                  margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: new Column(
+                    children: <Widget>[
+                      new AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: new Image.asset(
+                          discoverCard["imageUrl"],
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      new ListTile(
+                        title: new Text(discoverCard["title"]),
+                        subtitle: new Text(discoverCard["description"]),
+                      ),
+                    ],
                   ),
-                ),
-                new ListTile(
-                  title: new Text(discoverCard["title"]),
-                  subtitle: new Text(discoverCard["description"]),
-                ),
-              ],
+                );
+              }).toList(),
             ),
-          );
-        }).toList(),
-      ),
-    );
+          ),
+        ]));
   }
 }
