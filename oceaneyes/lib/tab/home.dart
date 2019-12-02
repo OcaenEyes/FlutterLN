@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oceaneyes/home/homePage.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -11,9 +12,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: new Text("首页"),
-      ),
+      body: HomePageWidget(),
     );
   }
 

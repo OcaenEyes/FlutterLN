@@ -17,28 +17,11 @@ class _MyPageWidgetState extends State<MyPagewidget> {
             expandedHeight: 250.0,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset("assets/images/bg.jpg",fit: BoxFit.cover,),
-              title: new Text("个人简历"),
+              title: new Text("呵呵呵"),
             ),
           ),
 
-          new SliverFixedExtentList(
-            itemExtent: 50.0,
-            delegate: new SliverChildBuilderDelegate((BuildContext context,int index){
-              //创建列表
-              return new Container(
-                alignment: Alignment.center,
-                child: Column(
-                  children: <Widget>[
-                    
-                  ],
-                ),
-                
-              );
-            },
-            childCount: 3,
-            ),
-          ),
-
+          
         ],
       ),
 
