@@ -123,7 +123,8 @@ List discoverData = [
                           fit: BoxFit.fill,
                         ),
                       ),
-                      new ListTile(
+                      new ListTile(   
+                        leading: CircleAvatar(backgroundColor: Colors.white,child: Image.asset(discoverCard["imageUrl"],fit: BoxFit.fill,)),                     
                         title: new Text(discoverCard["title"]),
                         subtitle: new Text(discoverCard["description"]),
                       ),
