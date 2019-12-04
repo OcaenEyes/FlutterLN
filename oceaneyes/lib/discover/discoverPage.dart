@@ -58,12 +58,31 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
         ),
         body: new ListView(children: <Widget>[
           new Container(
+            margin: EdgeInsets.fromLTRB(16, 0, 16, 10),
+            height: 200,
+            child: new ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Container(
+                  width: 340,
+                  margin: EdgeInsets.only(right: 16),
+                  color: Colors.black,
+                ),
+                Container(
+                  width: 340,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+          ),
+          new Container(
             height: 698,
             child: new ListView(
               // scrollDirection: Axis.vertical,
               shrinkWrap: true,
               children: discoverData.map((discoverCard) {
                 return new Card(
+                  color: Colors.black,
                   margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: new Column(
                     children: <Widget>[
@@ -74,12 +93,21 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      new ListTile(   
-                        leading: CircleAvatar(backgroundColor: Colors.white,child: Image.asset(discoverCard["imageUrl"],fit: BoxFit.fill,)),                    
-                        title: new Text(discoverCard["title"]),
-                        subtitle: new Text(discoverCard["description"]),
-
-                        
+                      new ListTile(
+                        leading: CircleAvatar(
+                            child: Image.asset(
+                              discoverCard["imageUrl"],
+                              
+                              fit: BoxFit.fill,
+                        )),
+                        title: new Text(
+                          discoverCard["title"],
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: new Text(
+                          discoverCard["description"],
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
