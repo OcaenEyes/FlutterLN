@@ -1,57 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 const url = "http://resume.oceaneyes.cn/api/getprojects?id=1";
-class DemoModel {
-  final String name;
-  final String sate;
-  final String edate;
-  final String content;
 
-  DemoModel({this.name, this.sate, this.edate, this.content,});
-
-  //转换为json字符串时使用
-  Map<String ,dynamic> toJson(){
-    return {
-      'name':name,
-      'sate':sate,
-      'edate':edate,
-      'content':content,
-
-    };
-
-  }
-
-  //获取demoModel的实例
-  factory DemoModel.fromJson(Map<String ,dynamic> json){
-    return DemoModel(
-      name:json['p_name'],
-      sate:json['p_sate'],
-      edate:json['p_edate'],
-content:json['p_content']      
-
-    );
-  }
-
-}
-class Demo {
-  static Future<DemoModel> fetch() async {
-    final response = await http.get(url);
-    if (response.statusCode ==200){
-      Utf8Decoder utf8decoder = Utf8Decoder();
-
-      var result = json.decode(utf8decoder.convert(response.bodyBytes));
-      return DemoModel.fromJson(result);
-    } else {
-      throw Exception('load url fail');
-    }
-
-  }
-}
 class HomePageWidget extends StatefulWidget {
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -125,6 +81,36 @@ List discoverData = [
                     debugPrint("描述信息是" + descriptions[index] + "个");
                   },
                 ),
+              ),
+            ),
+            new Container(
+              height: 160,
+              margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
+              child: new ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 180,
+
+                    color: Colors.black12,
+                    margin: EdgeInsets.only(right: 12),
+                  ),
+                  Container(
+                    width: 180,
+                    color: Colors.black26,
+                    margin: EdgeInsets.only(right: 12),
+                  ),
+                  Container(
+                    width: 180,
+                    margin: EdgeInsets.only(right: 12),
+                    color: Colors.black38,
+                  ),
+                  Container(
+                    width: 180,
+                    color: Colors.black45,
+                  ),
+                ],
+
               ),
             ),
             new Container(
