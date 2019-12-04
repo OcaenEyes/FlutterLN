@@ -58,7 +58,7 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
         ),
         body: new ListView(children: <Widget>[
           new Container(
-            height: 530,
+            height: 698,
             child: new ListView(
               // scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -74,9 +74,12 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      new ListTile(
+                      new ListTile(   
+                        leading: CircleAvatar(backgroundColor: Colors.white,child: Image.asset(discoverCard["imageUrl"],fit: BoxFit.fill,)),                    
                         title: new Text(discoverCard["title"]),
                         subtitle: new Text(discoverCard["description"]),
+
+                        
                       ),
                     ],
                   ),
