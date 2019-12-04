@@ -57,6 +57,7 @@ List discoverData = [
   ];
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         appBar: AppBar(
           title: new Text("首页"),
@@ -65,7 +66,7 @@ List discoverData = [
           children: <Widget>[
             new Container(
               height: 180,
-              margin: EdgeInsets.fromLTRB(12, 10, 12, 5),
+              margin: EdgeInsets.fromLTRB(16, 10, 16, 8),
               child: new Card(
                 child: new Swiper(
                   itemCount: 5,
@@ -85,7 +86,7 @@ List discoverData = [
             ),
             new Container(
               height: 160,
-              margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
+              margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: new ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
@@ -93,16 +94,16 @@ List discoverData = [
                     width: 180,
 
                     color: Colors.black12,
-                    margin: EdgeInsets.only(right: 12),
+                    margin: EdgeInsets.only(right: 16),
                   ),
                   Container(
                     width: 180,
                     color: Colors.black26,
-                    margin: EdgeInsets.only(right: 12),
+                    margin: EdgeInsets.only(right: 16),
                   ),
                   Container(
                     width: 180,
-                    margin: EdgeInsets.only(right: 12),
+                    margin: EdgeInsets.only(right: 16),
                     color: Colors.black38,
                   ),
                   Container(
@@ -114,7 +115,7 @@ List discoverData = [
               ),
             ),
             new Container(
-              margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
+              margin: EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: new Card(
                 child: new Column(
                   children: <Widget>[
