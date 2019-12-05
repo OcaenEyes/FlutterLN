@@ -54,7 +54,6 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
       "description": "这是第五个卡片"
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +107,7 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
             ),
           ),
           new Container(
-            height: 698,
+            height: 320,
             child: new ListView(
               // scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -140,7 +139,6 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    
                     ],
                   ),
                 );
