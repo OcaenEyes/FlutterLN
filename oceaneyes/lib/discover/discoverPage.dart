@@ -26,26 +26,31 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
     {
       "title": "卡片一",
       "imageUrl": "assets/images/bg.jpg",
-      "description": "这是第一个卡片"
+      "headImg": "assets/images/head.jpg",
+      "description": "这是第一个卡片",
     },
     {
       "title": "卡片二",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第二个卡片"
     },
     {
       "title": "卡片三",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第三个卡片"
     },
     {
       "title": "卡片四",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第四个卡片"
     },
     {
       "title": "卡片五",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第五个卡片"
     },
   ];
@@ -58,19 +63,46 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
         ),
         body: new ListView(children: <Widget>[
           new Container(
-            margin: EdgeInsets.fromLTRB(16, 0, 16, 10),
-            height: 200,
+            margin: EdgeInsets.fromLTRB(16, 16, 16, 10),
+            height: 180,
             child: new ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
                 Container(
-                  width: 340,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.black,
+                  ),
+                  width: 300,
                   margin: EdgeInsets.only(right: 16),
-                  color: Colors.black,
+                  child: Center(
+                      child:
+                          Text("这一个卡二", style: TextStyle(color: Colors.white))),
                 ),
                 Container(
-                  width: 340,
-                  color: Colors.black,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.black,
+                  ),
+                  width: 300,
+                  margin: EdgeInsets.only(right: 16),
+                  child: Center(
+                      child:
+                          Text("这一个卡二", style: TextStyle(color: Colors.white))),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.black,
+                    // image: DecorationImage(
+                    //   image: AssetImage("assets/images/bg.jpg"),
+                    //   fit: BoxFit.fill,
+                    // )
+                  ),
+                  width: 300,
+                  child: Center(
+                      child:
+                          Text("这一个卡三", style: TextStyle(color: Colors.white))),
                 ),
               ],
             ),
@@ -82,23 +114,22 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
               shrinkWrap: true,
               children: discoverData.map((discoverCard) {
                 return new Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(10.0),
+                  ),
                   color: Colors.black,
                   margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: new Column(
                     children: <Widget>[
-                      new AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: new Image.asset(
-                          discoverCard["imageUrl"],
-                          fit: BoxFit.fill,
-                        ),
-                      ),
                       new ListTile(
-                        leading: CircleAvatar(
-                            child: Image.asset(
-                              discoverCard["imageUrl"],
-                              
-                              fit: BoxFit.fill,
+                        leading: ClipOval(
+                            child: SizedBox(
+                          width: 44,
+                          height: 44,
+                          child: Image.asset(
+                            discoverCard["headImg"],
+                            fit: BoxFit.fill,
+                          ),
                         )),
                         title: new Text(
                           discoverCard["title"],
@@ -109,6 +140,7 @@ class _DiscoverPageWidgetSatte extends State<DiscoverPageWidget> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
+                    
                     ],
                   ),
                 );
