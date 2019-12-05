@@ -32,26 +32,31 @@ List discoverData = [
     {
       "title": "卡片一",
       "imageUrl": "assets/images/bg.jpg",
-      "description": "这是第一个卡片"
+      "headImg": "assets/images/head.jpg",
+      "description": "这是第一个卡片",
     },
     {
       "title": "卡片二",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第二个卡片"
     },
     {
       "title": "卡片三",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第三个卡片"
     },
     {
       "title": "卡片四",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第四个卡片"
     },
     {
       "title": "卡片五",
       "imageUrl": "assets/images/bg.jpg",
+      "headImg": "assets/images/head.jpg",
       "description": "这是第五个卡片"
     },
   ];
@@ -60,15 +65,17 @@ List discoverData = [
     
     return Scaffold(
         appBar: AppBar(
-          title: new Text("首页"),
+          backgroundColor: Colors.white,
+          brightness: Brightness.light,
+          title: new Text("首页",style: TextStyle(color: Colors.black),),
         ),
         body: new ListView(
+          shrinkWrap: true,
           children: <Widget>[
             new Container(
               height: 180,
               margin: EdgeInsets.fromLTRB(16, 10, 16, 8),
-              child: new Card(
-                child: new Swiper(
+              child: new Swiper(                
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     return new Image.asset(
@@ -76,14 +83,26 @@ List discoverData = [
                       fit: BoxFit.fill,
                     );
                   },
+                  autoplayDelay: 4000,
+                  autoplay: true,
+                  loop: true,
+                  autoplayDisableOnInteraction: true,
                   pagination: new SwiperPagination(),
                   onTap: (index) {
                     debugPrint("点击了第: $index 个");
                     debugPrint("描述信息是" + descriptions[index] + "个");
                   },
+                  itemWidth: 400.0,
+                  itemHeight: 180.0,
+                  layout: SwiperLayout.TINDER,
                 ),
-              ),
             ),
+            new  Container(
+              child: Text("今日推荐",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              margin: EdgeInsets.fromLTRB(16,16,16,2),
+            ),
+            
+            
             new Container(
               height: 160,
               margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -92,7 +111,6 @@ List discoverData = [
                 children: <Widget>[
                   Container(
                     width: 180,
-
                     color: Colors.black12,
                     margin: EdgeInsets.only(right: 16),
                   ),
@@ -114,9 +132,13 @@ List discoverData = [
 
               ),
             ),
-            new Container(
-              margin: EdgeInsets.fromLTRB(16, 5, 16, 5),
+            new  Container(
+              child: Text("兴趣卡片",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              margin: EdgeInsets.fromLTRB(16,16,16,2),
+            ),
+            new Container(             
               child: new Card(
+                margin: EdgeInsets.fromLTRB(16, 8, 16, 5),
                 child: new Column(
                   children: <Widget>[
                     new ListTile(
@@ -142,15 +164,19 @@ List discoverData = [
                 ),
               ),
             ),
+            new  Container(
+              child: Text("自由卡片",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              margin: EdgeInsets.fromLTRB(16,16,16,16),
+            ),
 
             new Container(
             height: 530,
             child: new ListView(
               // scrollDirection: Axis.vertical,
-              shrinkWrap: true,
               children: discoverData.map((discoverCard) {
                 return new Card(
-                  margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  elevation: 6,
+                  margin: EdgeInsets.fromLTRB(16, 0, 16, 20),
                   child: new Column(
                     children: <Widget>[
                       new AspectRatio(
@@ -161,9 +187,14 @@ List discoverData = [
                         ),
                       ),
                       new ListTile(   
-                        leading: CircleAvatar(backgroundColor: Colors.white,child: Image.asset(discoverCard["imageUrl"],fit: BoxFit.fill,)),                     
+                        leading: ClipOval(
+                          child:SizedBox(
+                            width: 44,
+                            height: 44,
+                            child: Image.asset(discoverCard["headImg"],fit: BoxFit.fill,)),                     
+                        ) ,  
                         title: new Text(discoverCard["title"]),
-                        subtitle: new Text(discoverCard["description"]),
+                        subtitle: new Text(discoverCard["description"]), 
                       ),
                     ],
                   ),
