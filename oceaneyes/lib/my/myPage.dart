@@ -51,6 +51,7 @@ class _MyPageWidgetState extends State<MyPagewidget> {
             ),
             Container(
               height: 500,
+              color: Colors.black,
               child: ListView.builder(
                 itemCount: results.length,
                 itemBuilder: (BuildContext context, int i) {
@@ -108,28 +109,5 @@ class _MyPageWidgetState extends State<MyPagewidget> {
             
           ],
         ));
-  }
-}
-
-class Project {
-  final p_name;
-  final p_sdate;
-  final p_edate;
-  final p_content;
-
-  Project({
-    this.p_name,
-    this.p_sdate,
-    this.p_edate,
-    this.p_content,
-  });
-
-  factory Project.fromJson(Map<String, dynamic> json) {
-    return Project(
-      p_name: json['p_name'],
-      p_sdate: json['p_sdate'],
-      p_edate: json['p_edate'],
-      p_content: json['p_content'],
-    );
   }
 }
