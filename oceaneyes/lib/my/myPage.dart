@@ -9,8 +9,8 @@ class MyPagewidget extends StatefulWidget {
 class _MyPageWidgetState extends State<MyPagewidget> {
   @override
   void initState() {
-    super.initState();
     getProjects();
+    super.initState();
   }
 
 
@@ -20,12 +20,11 @@ class _MyPageWidgetState extends State<MyPagewidget> {
       Response response;
       Dio dio = new Dio();
       response =
-          await dio.get("http://resume.oceaneyes.cn/api/getprojects?id=1");
+          await dio.get("http://192.168.0.107:8080/youone-default");
       Map data = response.data;
-      
-      results = data['results'];
-      print(results);
+      results =data["content"];
       debugPrint("接口被请求了");
+      print(results);
       return results;
     } catch (e) {
       return debugPrint(e + "异常了");
@@ -62,11 +61,11 @@ class _MyPageWidgetState extends State<MyPagewidget> {
                     margin: EdgeInsets.fromLTRB(16, 0, 16, 20),
                     child: Column(
                       children: <Widget>[
-                        
-                        Text(results[i]['p_name']),
-                        Text(results[i]['p_sdate']),
-                        Text(results[i]['p_edate']),
-                        Text(results[i]['p_content']),
+                        Text(results[i]['id']),
+                        Image.network(results[i]['imgUrl']),
+                        Text(results[i]['textContent']),
+                        Text(results[i]['imgAuther']),
+                        Text(results[i]['textNum']),
                       ],
                     ),
                   );
