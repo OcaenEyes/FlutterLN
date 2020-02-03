@@ -25,9 +25,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
 
   //图标数据
   var tabBarIconList = [
-    ItemIcon(Colors.black, Icons.home, "首页"),
-    ItemIcon(Colors.black, Icons.message, "消息"),
-    ItemIcon(Colors.black, Icons.person, "我的")
+    ItemIcon(Colors.black, Icons.home, ""),
+    ItemIcon(Colors.black54, Icons.message, ""),
+    ItemIcon(Colors.black54, Icons.person, "")
   ];
 
   @override
@@ -36,6 +36,11 @@ class _BottomTabBarState extends State<BottomTabBar> {
     return Scaffold(
         body: tabViewList[_currentIndex],
         bottomNavigationBar: new BottomNavigationBar(
+          unselectedFontSize: 0,
+          backgroundColor: Colors.white,
+          selectedFontSize: 0,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black54,
           items: tabBarIconList.map((item) {
             return BottomNavigationBarItem(
                 backgroundColor: Colors.white,
