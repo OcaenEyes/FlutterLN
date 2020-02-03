@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:lemon/pages/tab/tba_bar.dart';
+import 'package:lemon/router/page_router.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(
+//   MyApp(),
+//   PageRouter.setupRoutes(),
+//   );
+void main() {
+  runApp(MyApp());
+  PageRouter.setupRoutes(); 
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Lemon',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -18,9 +27,11 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BottomTabBar(),
+      onGenerateRoute: PageRouter.router.generator,
     );
   }
 }
