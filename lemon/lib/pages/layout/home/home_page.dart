@@ -21,13 +21,13 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Padding(
             child: Text(
-              "Good Day \n很高兴遇见你",
+              "高智勇\nGood Night ~ ",
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.3,
-                fontSize:25,
-                height:1.5,
+                fontSize: 25,
+                height: 1.5,
               ),
             ),
             padding: EdgeInsets.only(
@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
               left: 40,
             ),
           ),
-
           Expanded(
             child: HomeCardViewWidget(),
           ),
