@@ -73,7 +73,7 @@ class _HomeCardViewWidgetState extends State<HomeCardViewWidget> {
               padding: EdgeInsets.only(
                 right: 20,
                 left: 10,
-                top: 100 - scale * 36,
+                top: 100 - scale * 26,
                 bottom: 68,
               ),
               child: GestureDetector(

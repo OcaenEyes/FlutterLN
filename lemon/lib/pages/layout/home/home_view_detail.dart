@@ -221,11 +221,14 @@ class RecommendWidget extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: vacationList.length,
       itemBuilder: (context, index) {
-        var url = vacationList[index].url;
+        var vacation = {
+          "url":vacationList[index].url,
+          "name":vacationList[index].name,
+          };
         return GestureDetector(
           child: Container(
             child: Image.asset(
-              url,
+              vacationList[index].url,
               fit: BoxFit.cover,
             ),
             height: 100,
@@ -237,7 +240,7 @@ class RecommendWidget extends StatelessWidget {
           onTap: () {
             Navigator.pushNamed(
                 context, PageName.home_image_view_page.toString(),
-                arguments: Bundle()..putString("url", url));
+                arguments: Bundle()..putMap("data", vacation));
           },
         );
       },
