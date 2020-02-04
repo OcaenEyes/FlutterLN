@@ -46,4 +46,5 @@ class PageBuilder {
   Handler getHandler() {
     return Handler(handlerFunc: this.handlerFunc);
   }
+  
 }
