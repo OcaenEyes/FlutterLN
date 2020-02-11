@@ -21,6 +21,7 @@ class _HomeImageViewPageState extends State<HomeImageViewPage> {
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: Image.asset(
               widget.bundle.getMap("data")["url"],
               fit: BoxFit.cover,
