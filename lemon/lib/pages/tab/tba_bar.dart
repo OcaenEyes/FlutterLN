@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lemon/pages/layout/home/home_page.dart';
 import 'package:lemon/pages/layout/mine/my_page.dart';
 import 'package:lemon/pages/layout/message/message_page.dart';
+import 'package:lemon/pages/layout/movie/movie_page.dart';
 
 // 图标属性自定义
 class ItemIcon {
@@ -25,9 +26,11 @@ class _BottomTabBarState extends State<BottomTabBar> {
 
   //图标数据
   var tabBarIconList = [
-    ItemIcon(Colors.black, Icons.home, ""),
-    ItemIcon(Colors.black, Icons.message, ""),
-    ItemIcon(Colors.black, Icons.person, "")
+    ItemIcon(Colors.black, Icons.home, "首页"),
+    ItemIcon(Colors.black, Icons.movie, "电影"),
+    ItemIcon(Colors.black, Icons.message, "消息"),
+    ItemIcon(Colors.black, Icons.person, "我的")
+    
   ];
 
   @override
@@ -52,7 +55,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
   }
 
   void initState() {
-    tabViewList..add(HomePage())..add(MessagePage())..add(MinePage());
+    tabViewList..add(HomePage())..add(MoviePage())..add(MessagePage())..add(MinePage());
     super.initState();
   }
 
