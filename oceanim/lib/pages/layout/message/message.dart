@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oceanim/router/page_builder.dart';
+import 'package:oceanim/router/page_routes.dart';
 
 class MessagePage extends StatefulWidget {
   @override
@@ -82,28 +84,30 @@ Widget message() {
 }
 
 Widget messageItem(context, index) {
+  
   return Column(
     children: <Widget>[
-      
-         ListTile(
-          leading: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                image: DecorationImage(
-                    image: AssetImage('assets/images/3.jpg'),
-                    fit: BoxFit.cover)),
-          ),
-          title: Text("OCEAN.GZY",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-          subtitle: Text("这是最后一条消息"),
-          trailing: Text("4天前",style: TextStyle(color: Colors.black38)),
-          onTap: () {
-            print(index);
-          },
-          onLongPress: () {},
+      ListTile(
+        leading: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/3.jpg'), fit: BoxFit.cover)),
         ),
-      
+        title: Text(
+          "OCEAN.GZY",
+          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+        ),
+        subtitle: Text("这是最后一条消息"),
+        trailing: Text("4天前", style: TextStyle(color: Colors.black38)),
+        onTap: () {
+          Navigator.pushNamedAndRemoveUntil(context, PageName.chatting.toString(),
+              (route) => true,arguments: Bundle()..putString("username", "OCEAN.GZY"));
+        },
+        onLongPress: () {},
+      ),
       Divider(
         color: Colors.black12,
         indent: 68,
