@@ -40,11 +40,15 @@ class _ChattingPageState extends State<ChattingPage>
       child: Row(
         children: <Widget>[
           Flexible(
-            child: TextField(
+            child: 
+            Container(
+              padding: EdgeInsets.only(left:10),
+              child: TextField(
               controller: _textEditingController,
               onSubmitted: _handleSubmit,
               decoration: InputDecoration.collapsed(hintText: "发送消息"),
-            ),
+            ),)
+            ,
           ),
           Container(
             child: IconButton(
