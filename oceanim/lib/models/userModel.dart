@@ -7,10 +7,10 @@ class UserModel {
   String userName;
   String nickName;
   String avatarUrl;
-  String singnName;
+  String signName;
 
   UserModel(this.userId, this.userName, this.nickName, this.avatarUrl,
-      this.singnName);
+      this.signName);
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserModelToJson(this);

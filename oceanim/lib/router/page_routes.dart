@@ -13,7 +13,7 @@ final Map<PageName, PageBulider> pageRoutes = {
   PageName.message: PageBulider(buliderFunc: (bundle) => MessagePage()),
   PageName.friends: PageBulider(buliderFunc: (bundle) => FriendsPage()),
   PageName.discovery: PageBulider(buliderFunc: (bundle) => DiscoveryPage()),
-  PageName.mine: PageBulider(buliderFunc: (bundle) => MinePage()),
-  PageName.bottom_tab: PageBulider(buliderFunc: (bundle) => BottomTabBar()),
+  PageName.mine: PageBulider(buliderFunc: (bundle) => MinePage(bundle)),
+  PageName.bottom_tab: PageBulider(buliderFunc: (bundle) => BottomTabBar(bundle)),
   PageName.chatting: PageBulider(buliderFunc: (budle)=>ChattingPage(budle)),
 };

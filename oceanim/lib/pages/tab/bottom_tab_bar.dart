@@ -7,8 +7,8 @@ import 'package:oceanim/pages/layout/mine/mine.dart';
 import 'package:oceanim/router/page_builder.dart';
 
 class BottomTabBar extends StatefulWidget {
-  // final Bundle bundle;
-  // BottomTabBar(this.bundle);
+  final Bundle bundle;
+  BottomTabBar(this.bundle);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -74,7 +74,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
       ..add(MessagePage())
       ..add(FriendsPage())
       ..add(DiscoveryPage())
-      ..add(MinePage());
+      ..add(MinePage(widget.bundle));
     super.initState();
   }
 

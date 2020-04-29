@@ -17,7 +17,7 @@ class _LaunchPageState extends State<LaunchPage> {
     opacityLevel = 0;
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushNamedAndRemoveUntil(
-          context, PageName.bottom_tab.toString(), (route) => false);
+          context, PageName.login.toString(), (route) => false);
     });
 
     Future.delayed(Duration(seconds: 1), () {

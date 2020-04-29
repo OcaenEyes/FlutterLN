@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode passNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -141,9 +143,14 @@ dynamic loginForm(context, passNode, phoneController, passController) {
                 if (phoneController.text == '123456' &&
                     passController.text == '123456') {
                   print("账号密码正确");
+                  var userInfo ={
+                    "nickName":"OCEAN.GZY",
+                    "avatarUrl":"assets/images/3.jpg",
+                    "signName":"读书城南",
+                  };
                   Navigator.pushNamedAndRemoveUntil(
                       context, PageName.bottom_tab.toString(), (route) => false,
-                      arguments: null);
+                      arguments: Bundle()..putMap("userInfo", userInfo));
                 }
               }, //since this is only a UI app
               child: Text(
