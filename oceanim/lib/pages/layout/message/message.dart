@@ -84,34 +84,40 @@ Widget message() {
 }
 
 Widget messageItem(context, index) {
-  
   return Column(
     children: <Widget>[
-      ListTile(
-        leading: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              image: DecorationImage(
-                  image: AssetImage('assets/images/3.jpg'), fit: BoxFit.cover)),
-        ),
-        title: Text(
-          "OCEAN.GZY",
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-        ),
-        subtitle: Text("这是最后一条消息"),
-        trailing: Text("4天前", style: TextStyle(color: Colors.black38)),
-        onTap: () {
-          Navigator.pushNamedAndRemoveUntil(context, PageName.chatting.toString(),
-              (route) => true,arguments: Bundle()..putString("username", "OCEAN.GZY"));
-        },
-        onLongPress: () {},
-      ),
+      Container(
+          alignment: Alignment.center,
+          height: 80,
+          padding: EdgeInsets.only(left: 10),
+          color: Colors.white,
+          child: ListTile(
+            leading: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/3.jpg'),
+                      fit: BoxFit.cover)),
+            ),
+            title: Text(
+              "OCEAN.GZY",
+              style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
+            ),
+            subtitle: Text("这是最后一条消息"),
+            trailing: Text("4天前", style: TextStyle(color: Colors.black38)),
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, PageName.chatting.toString(), (route) => true,
+                  arguments: Bundle()..putString("username", "OCEAN.GZY"));
+            },
+            onLongPress: () {},
+          )),
       Divider(
         color: Colors.black12,
         indent: 68,
-        height: 4,
+        height: 0,
       ),
     ],
   );
@@ -130,15 +136,20 @@ dynamic popupMenuItem() {
         onTap: () {
           print(item['text']);
         },
-        child: Row(
-          children: <Widget>[
-            Icon(item['icon']),
-            Padding(
-              padding: EdgeInsets.all(8),
-            ),
-            Text(item['text'])
-          ],
-        ),
+        child: Container(
+            alignment: Alignment.center,
+            height: 56,
+            padding: EdgeInsets.only(left: 10),
+            color: Colors.white,
+            child: Row(
+              children: <Widget>[
+                Icon(item['icon']),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                ),
+                Text(item['text'])
+              ],
+            )),
       ),
     );
   }).toList();
