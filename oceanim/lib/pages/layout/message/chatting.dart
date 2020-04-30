@@ -14,10 +14,31 @@ class ChattingPage extends StatefulWidget {
 
 class _ChattingPageState extends State<ChattingPage>
     with TickerProviderStateMixin {
+  List _messages = [];
   List<ReceiveMessage> _receiveMessages = <ReceiveMessage>[];
   List<SendMessage> _sendMessages = <SendMessage>[];
   final TextEditingController _textEditingController =
       new TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _receiveMsg("NIHAO");
+    super.initState();
+  }
+
+  void _receiveMsg(String text) {
+    ReceiveMessage message = new ReceiveMessage(
+      text: text,
+      recevieAnimationController: AnimationController(
+          vsync: this, duration: Duration(milliseconds: 700)),
+    );
+
+    setState(() {
+      _messages.insert(0, message);
+    });
+    message.recevieAnimationController.forward();
+  }
 
   // 定义发送文本事件的处理函数
   void _handleSubmit(String text) {
@@ -29,7 +50,7 @@ class _ChattingPageState extends State<ChattingPage>
     );
 
     setState(() {
-      _sendMessages.insert(0, message);
+      _messages.insert(0, message);
     });
     message.sendAnimationController.forward();
   }
@@ -40,15 +61,14 @@ class _ChattingPageState extends State<ChattingPage>
       child: Row(
         children: <Widget>[
           Flexible(
-            child: 
-            Container(
-              padding: EdgeInsets.only(left:10),
+            child: Container(
+              padding: EdgeInsets.only(left: 20),
               child: TextField(
-              controller: _textEditingController,
-              onSubmitted: _handleSubmit,
-              decoration: InputDecoration.collapsed(hintText: "发送消息"),
-            ),)
-            ,
+                controller: _textEditingController,
+                onSubmitted: _handleSubmit,
+                decoration: InputDecoration.collapsed(hintText: "发送消息"),
+              ),
+            ),
           ),
           Container(
             child: IconButton(
@@ -64,28 +84,23 @@ class _ChattingPageState extends State<ChattingPage>
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    for (SendMessage sendMessage in _sendMessages) {
-      sendMessage.sendAnimationController.dispose();
-    }
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.bundle.getString("username")),
         ),
+        backgroundColor: Colors.white,
         body: Column(
           children: <Widget>[
-            Flexible(
-              child: new ListView.builder(
-                  itemCount: _sendMessages.length,
-                  reverse: true, // 倒序
-                  itemBuilder: (context, index) => _sendMessages[index]),
+            NotificationListener(
+              child: Flexible(
+                child: new ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: _messages.length,
+                    reverse: true, // 倒序
+                    itemBuilder: (context, index) => _messages[index]),
+              ),
             ),
             Divider(
               height: 1,
@@ -117,7 +132,7 @@ class ReceiveMessage extends StatelessWidget {
           Container(
             width: 50,
             height: 50,
-            margin: EdgeInsets.only(right: 16),
+            margin: EdgeInsets.only(left: 16),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 image: DecorationImage(
@@ -129,8 +144,12 @@ class ReceiveMessage extends StatelessWidget {
           ),
           Expanded(
               child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("OCEAN.GZY"),
+              Text(
+                "OCEAN.GZY",
+                style: TextStyle(fontSize: 10, color: Colors.black38),
+              ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
@@ -169,7 +188,6 @@ class SendMessage extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-            
               children: <Widget>[
                 Text(
                   "OCEAN.GZY",

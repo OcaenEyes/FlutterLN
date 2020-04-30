@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:oceanim/router/page_routes.dart';
+import 'package:path_provider/path_provider.dart';
 
 class LaunchPage extends StatefulWidget {
   @override
@@ -11,13 +14,24 @@ class LaunchPage extends StatefulWidget {
 
 class _LaunchPageState extends State<LaunchPage> {
   double opacityLevel;
+  bool islogininfo;
   @override
   void initState() {
     super.initState();
     opacityLevel = 0;
+     
+    _getLoginInformation().then((onValue){
+      islogininfo = onValue.existsSync();
+      print(islogininfo);
+      Future<String> content = onValue.readAsString();
+      print(content);
+    });
+
+    ;
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushNamedAndRemoveUntil(
-          context, PageName.login.toString(), (route) => false);
+      islogininfo ? Navigator.pushNamedAndRemoveUntil(
+          context, PageName.bottom_tab.toString(), (route) => false) :Navigator.pushNamedAndRemoveUntil(
+          context, PageName.login.toString(), (route) => false)  ;
     });
 
     Future.delayed(Duration(seconds: 1), () {
@@ -33,6 +47,8 @@ class _LaunchPageState extends State<LaunchPage> {
     return Stack(
       children: <Widget>[
         Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
             child: Image.asset(
           'assets/images/3.jpg',
           fit: BoxFit.cover,
@@ -77,4 +93,9 @@ class _LaunchPageState extends State<LaunchPage> {
       ],
     );
   }
+}
+
+Future<File> _getLoginInformation() async{
+  String dir = (await getApplicationSupportDirectory()).path;
+  return File('$dir/LoginInformation');
 }

@@ -89,7 +89,7 @@ Widget messageItem(context, index) {
       Container(
           alignment: Alignment.center,
           height: 80,
-          padding: EdgeInsets.only(left: 10),
+          padding: EdgeInsets.only(left: 2),
           color: Colors.white,
           child: ListTile(
             leading: Container(

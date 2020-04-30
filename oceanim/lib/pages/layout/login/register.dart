@@ -1,19 +1,21 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
+import 'package:path_provider/path_provider.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _LoginPageState();
+    return _RegisterPageState();
   }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   FocusNode passNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -24,8 +26,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          
           bg(),
-          login(context, passNode, phoneController, passController)
+          back(context),
+          register(context, passNode, phoneController, passController)
         ],
       ),
     );
@@ -42,7 +46,7 @@ dynamic bg() {
   );
 }
 
-Widget login(context, passNode, phoneController, passController) {
+Widget register(context, passNode, phoneController, passController) {
   return Container(
     width: MediaQuery.of(context).size.width,
     margin: EdgeInsets.only(top: 240),
@@ -52,27 +56,47 @@ Widget login(context, passNode, phoneController, passController) {
       padding: EdgeInsets.fromLTRB(23, 18, 23, 23),
       child: ListView(
         children: <Widget>[
-          loginTitle(),
-          loginForm(context, passNode, phoneController, passController),
-          forgetPass(),
-          register(context)
+          registerTitle(),
+          registerForm(context, passNode, phoneController, passController),
         ],
       ),
     ),
   );
 }
 
-dynamic loginTitle() {
+dynamic back(context) {
+  return Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: Row(
+                children: <Widget>[
+                  GestureDetector(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Icon(Icons.arrow_back_ios, color: Colors.black),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ),
+            ),
+          );
+}
+
+dynamic registerTitle() {
   return Padding(
     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
     child: Text(
-      "登录",
+      "注册",
       style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
     ),
   );
 }
 
-dynamic loginForm(context, passNode, phoneController, passController) {
+dynamic registerForm(context, passNode, phoneController, passController) {
   return Container(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Column(
@@ -85,6 +109,7 @@ dynamic loginForm(context, passNode, phoneController, passController) {
                 controller: phoneController,
                 style: TextStyle(color: Colors.black),
                 keyboardType: TextInputType.number,
+                autofocus: true,
                 // maxLength: 11,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -141,11 +166,10 @@ dynamic loginForm(context, passNode, phoneController, passController) {
 
             child: MaterialButton(
               onPressed: () async {
-                print("被点击");
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://127.0.0.1:8080/login", queryParameters: {
+                response = await dio.post("http://127.0.0.1:8080/register", queryParameters: {
                   "password": passController.text,
                   "phone": phoneController.text
                 });
@@ -156,28 +180,31 @@ dynamic loginForm(context, passNode, phoneController, passController) {
                     context, PageName.bottom_tab.toString(), (route) => false,
                     arguments: Bundle()..putMap("userInfo", userInfo));
                 }
-                else if(response.data["code"] == "101"){
-                  Fluttertoast.showToast(msg: "账号不存在",fontSize: 12,gravity: ToastGravity.TOP);
-                }
-                else if (response.data["code"] == "102"){
-                  Fluttertoast.showToast(msg: "账号密码错误",fontSize: 12,gravity: ToastGravity.TOP);
+                else if(response.data["code"] == "103"){
+                  Fluttertoast.showToast(msg: "账号已存在",fontSize: 12,gravity: ToastGravity.TOP);
 
-                }else{
-                  Fluttertoast.showToast(msg: "登录失败,请重试",fontSize: 12,gravity: ToastGravity.TOP);
                 }
-                 
-                // if (phoneController.text == '123456' &&
+                else{
+                  Fluttertoast.showToast(msg: "注册失败,请重试",fontSize: 12,gravity: ToastGravity.TOP);
+                }
+                // print("被点击");
+                // if (phoneController.text == '15295572576' &&
                 //     passController.text == '123456') {
                 //   print("账号密码正确");
+                //   _saveregister("OCEAN.GZY", "读书城南", "assets/images/3.jpg");
                 //   var userInfo = {
                 //     "nickName": "OCEAN.GZY",
                 //     "avatarUrl": "assets/images/3.jpg",
                 //     "signName": "读书城南",
                 //   };
-                
+                  
+                //   Navigator.pushNamedAndRemoveUntil(
+                //       context, PageName.bottom_tab.toString(), (route) => false,
+                //       arguments: Bundle()..putMap("userInfo", userInfo));
+                // }
               }, //since this is only a UI app
               child: Text(
-                '登录',
+                '注册',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -196,41 +223,9 @@ dynamic loginForm(context, passNode, phoneController, passController) {
       ));
 }
 
-dynamic register(context) {
-  return Padding(
-    padding: EdgeInsets.only(top: 20),
-    child: Center(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, PageName.register.toString(),
-              arguments: null);
-        },
-        child: RichText(
-          text: TextSpan(children: [
-            TextSpan(
-                text: "没有账号？",
-                style: TextStyle(color: Colors.black45, fontSize: 15)),
-            TextSpan(
-                text: "点击注册",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold)),
-          ]),
-        ),
-      ),
-    ),
-  );
-}
-
-dynamic forgetPass() {
-  return Padding(
-    padding: EdgeInsets.only(top: 30),
-    child: Center(
-      child: Text(
-        "忘记密码？",
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
+Future<Null> _saveregister(
+    String nickName, String signName, String avatarUrl) async {
+  String dir = (await getApplicationDocumentsDirectory()).path;
+  await new File('$dir/registerInformation').writeAsString(
+      '{"nickName":"$nickName","signName":"$signName","avatarUrl":"$avatarUrl"}');
 }
