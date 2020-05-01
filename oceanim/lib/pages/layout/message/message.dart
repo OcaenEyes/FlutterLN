@@ -242,7 +242,7 @@ dynamic popupMenuItem(context) {
     {
       'text': "发起群聊",
       'icon': Icons.people,
-      'page_name': PageName.add_friend.toString()
+      'page_name': PageName.group.toString()
     },
     {
       'text': "添加朋友",
@@ -252,7 +252,7 @@ dynamic popupMenuItem(context) {
     {
       'text': "扫一扫",
       'icon': Icons.scatter_plot,
-      'page_name': PageName.add_friend.toString()
+      'page_name': PageName.qrscan.toString()
     },
   ];
   return popData.map((item) {

@@ -13,6 +13,7 @@ import 'package:oceanim/pages/layout/mine/collection.dart';
 import 'package:oceanim/pages/layout/mine/photo_album.dart';
 import 'package:oceanim/pages/layout/setting/setting.dart';
 import 'package:oceanim/pages/tab/bottom_tab_bar.dart';
+import 'package:oceanim/pages/layout/qrcode/qrscan.dart';
 import 'package:oceanim/pages/layout/userdetial/userdetial.dart';
 import 'package:oceanim/router/page_builder.dart';
 
@@ -33,6 +34,8 @@ enum PageName {
   collection,
   photo_album,
   userdetial,
+  qrscan
+
 }
 final Map<PageName, PageBulider> pageRoutes = {
   PageName.login: PageBulider(buliderFunc: (bundle) => LoginPage()),
@@ -52,4 +55,5 @@ final Map<PageName, PageBulider> pageRoutes = {
   PageName.heart: PageBulider(buliderFunc: (bundle) => HeartPage()),
   PageName.setting: PageBulider(buliderFunc: (bundle) => SettingPage()),
   PageName.userdetial: PageBulider(buliderFunc: (bundle) => UserDetialPage(bundle)),
+  PageName.qrscan: PageBulider(buliderFunc: (bundle) => QRScanPage()),
 };

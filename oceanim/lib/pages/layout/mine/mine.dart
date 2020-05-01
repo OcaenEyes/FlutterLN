@@ -92,9 +92,9 @@ dynamic userCard(widget, context) {
               var message = {
                 "text": "这是发给自己的消息哦",
                 "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
-                "phoneNumber": widget.bundle.getMap("userinfo")["phoneNumber"],
+                "phoneNumber": widget.bundle.getMap("userInfo")["phoneNumber"],
                 "avatarUrl": "assets/images/3.jpg",
-                "nickName": widget.bundle.getMap("userinfo")["nickName"],
+                "nickName": widget.bundle.getMap("userInfo")["nickName"],
                 "recevieTime": "",
               };
               Navigator.pushNamedAndRemoveUntil(
