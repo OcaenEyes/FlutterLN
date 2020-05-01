@@ -77,7 +77,7 @@ class _LaunchPageState extends State<LaunchPage> {
                 Padding(
                   padding: EdgeInsets.only(top: 6),
                   child: Text(
-                    "欢迎回来~",
+                    "GOOD DAY~",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

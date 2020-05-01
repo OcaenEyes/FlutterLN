@@ -23,13 +23,15 @@ class _ChattingPageState extends State<ChattingPage>
   @override
   void initState() {
     // TODO: implement initState
-    _receiveMsg("NIHAO");
+    _receiveMsg(widget.bundle.getMap("message")["text"],widget.bundle.getMap("message")["nickName"],widget.bundle.getMap("message")["avatarUrl"]);
     super.initState();
   }
 
-  void _receiveMsg(String text) {
+  void _receiveMsg(String text,String friendName,String avatarUrl) {
     ReceiveMessage message = new ReceiveMessage(
       text: text,
+      friendName:friendName,
+      avatarUrl:avatarUrl,
       recevieAnimationController: AnimationController(
           vsync: this, duration: Duration(milliseconds: 700)),
     );
@@ -88,7 +90,7 @@ class _ChattingPageState extends State<ChattingPage>
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.bundle.getString("username")),
+          title: Text(widget.bundle.getMap("message")["nickName"]),
         ),
         backgroundColor: Colors.white,
         body: Column(
@@ -99,7 +101,7 @@ class _ChattingPageState extends State<ChattingPage>
                     physics: BouncingScrollPhysics(),
                     itemCount: _messages.length,
                     reverse: true, // 倒序
-                    itemBuilder: (context, index) => _messages[index]),
+                    itemBuilder: (context, index,) => _messages[index]),
               ),
             ),
             Divider(
@@ -116,38 +118,42 @@ class _ChattingPageState extends State<ChattingPage>
 
 // 单条接收消息控件
 class ReceiveMessage extends StatelessWidget {
-  ReceiveMessage({this.text, this.recevieAnimationController});
+  ReceiveMessage({this.text, this.recevieAnimationController,this.friendName,this.avatarUrl});
   final String text;
+  final String friendName;
+  final String avatarUrl;
   final AnimationController recevieAnimationController;
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: new Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 50,
-            height: 50,
-            margin: EdgeInsets.only(left: 16),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                image: DecorationImage(
-                    image: AssetImage("assets/images/3.jpg"),
-                    fit: BoxFit.cover)),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "OCEAN.GZY",
+   
+
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  
+                  child: new Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: 50,
+                        height: 50,
+                        margin: EdgeInsets.only(left: 16),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            image: DecorationImage(
+                                image: AssetImage(avatarUrl),
+                                fit: BoxFit.cover)),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            friendName,
                 style: TextStyle(fontSize: 10, color: Colors.black38),
               ),
               Container(

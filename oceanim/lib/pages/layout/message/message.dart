@@ -75,15 +75,129 @@ Widget search() {
 }
 
 Widget message() {
+  List messages = [
+    {
+      "text": "biu biu biu，消息测试",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/3.jpg",
+      "nickName": "OCEAN.ZY",
+      "recevieTime": "刚刚",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/1.jpg",
+      "nickName": "OCEAN.Y",
+      "recevieTime": "10分钟前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/2.jpg",
+      "nickName": "OCEAN.Z",
+      "recevieTime": "40分钟前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/5.jpg",
+      "nickName": "OCAN.ZY",
+      "recevieTime": "1小时前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/4.jpg",
+      "nickName": "OCEA.ZY",
+      "recevieTime": "2小时前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/bg.png",
+      "nickName": "OEAN.ZY",
+      "recevieTime": "6小时前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572576",
+      "avatarUrl": "assets/images/1.jpg",
+      "nickName": "OCAN.ZY",
+      "recevieTime": "两天前",
+    },
+    {
+      "text": "biu biu biu，这事一个测测",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572576",
+      "avatarUrl": "assets/images/2.jpg",
+      "nickName": "CEAN.ZY",
+      "recevieTime": "三天前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/4.jpg",
+      "nickName": "OCE.ZY",
+      "recevieTime": "四天前",
+    },
+    {
+      "text": "biu biu biu，嘻嘻",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/5.jpg",
+      "nickName": "OAN.ZY",
+      "recevieTime": "四天前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/3.jpg",
+      "nickName": "OCN.ZY",
+      "recevieTime": "四天前",
+    },
+    {
+      "text": "biu biu biu，哈哈测试测试",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/2.jpg",
+      "nickName": "EAN.ZY",
+      "recevieTime": "四天前",
+    },
+    {
+      "text": "bu bu biu,你好呀",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/1.jpg",
+      "nickName": "OAN.ZY",
+      "recevieTime": "四天前",
+    },
+    {
+      "text": "biu biu biu",
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "avatarUrl": "assets/images/4.jpg",
+      "nickName": "OCEAN.ZY",
+      "recevieTime": "四天前",
+    },
+  ];
   return ListView.builder(
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: messages.length,
       itemBuilder: (context, index) {
-        return messageItem(context, index);
+        return messageItem(context, messages[index]);
       });
 }
 
-Widget messageItem(context, index) {
+Widget messageItem(context, message) {
   return Column(
     children: <Widget>[
       Container(
@@ -98,19 +212,19 @@ Widget messageItem(context, index) {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   image: DecorationImage(
-                      image: AssetImage('assets/images/3.jpg'),
+                      image: AssetImage(message["avatarUrl"]),
                       fit: BoxFit.cover)),
             ),
             title: Text(
-              "OCEAN.GZY",
+              message["nickName"],
               style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
             ),
-            subtitle: Text("这是最后一条消息"),
-            trailing: Text("4天前", style: TextStyle(color: Colors.black38)),
+            subtitle: Text(message["text"]),
+            trailing: Text(message["recevieTime"], style: TextStyle(color: Colors.black38)),
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(
                   context, PageName.chatting.toString(), (route) => true,
-                  arguments: Bundle()..putString("username", "OCEAN.GZY"));
+                  arguments: Bundle()..putMap("message", message));
             },
             onLongPress: () {},
           )),
@@ -125,9 +239,21 @@ Widget messageItem(context, index) {
 
 dynamic popupMenuItem(context) {
   List popData = [
-    {'text': "发起群聊", 'icon': Icons.people,'page_name':PageName.add_friend.toString()},
-    {'text': "添加朋友", 'icon': Icons.person_add,'page_name':PageName.add_friend.toString()},
-    {'text': "扫一扫", 'icon': Icons.scatter_plot,'page_name':PageName.add_friend.toString()},
+    {
+      'text': "发起群聊",
+      'icon': Icons.people,
+      'page_name': PageName.add_friend.toString()
+    },
+    {
+      'text': "添加朋友",
+      'icon': Icons.person_add,
+      'page_name': PageName.add_friend.toString()
+    },
+    {
+      'text': "扫一扫",
+      'icon': Icons.scatter_plot,
+      'page_name': PageName.add_friend.toString()
+    },
   ];
   return popData.map((item) {
     return PopupMenuItem(
@@ -135,7 +261,7 @@ dynamic popupMenuItem(context) {
       child: GestureDetector(
         onTap: () {
           print(item['text']);
-          Navigator.pushNamed(context, item['page_name'],arguments: null);
+          Navigator.pushNamed(context, item['page_name'], arguments: null);
         },
         child: Container(
             alignment: Alignment.center,
