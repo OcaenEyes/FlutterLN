@@ -95,19 +95,19 @@ dynamic userCard(widget) {
 dynamic tools() {
   List toolData = [
     {
-      'text': "发起群聊",
-      'icon': Icons.people,
-      'page_name': PageName.add_friend.toString()
+      'text': "收藏",
+      'icon': Icons.collections_bookmark,
+      'page_name': PageName.collection.toString()
     },
     {
-      'text': "添加朋友",
-      'icon': Icons.person_add,
-      'page_name': PageName.add_friend.toString()
+      'text': "相册",
+      'icon': Icons.photo_album,
+      'page_name': PageName.photo_album.toString()
     },
     {
-      'text': "扫一扫",
-      'icon': Icons.scatter_plot,
-      'page_name': PageName.add_friend.toString()
+      'text': "设置",
+      'icon': Icons.settings,
+      'page_name': PageName.setting.toString()
     },
   ];
   return ListView.builder(

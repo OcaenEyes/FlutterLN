@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
 
 class FriendsPage extends StatefulWidget {
@@ -41,16 +42,128 @@ class _FriendsPageState extends State<FriendsPage> {
 }
 
 Widget friends() {
+  List friends=[
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572575",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCEAN.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572577",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCEAN.Z",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572578",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCEAN.Y",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572579",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCEAN.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },{
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572580",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCEN.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572581",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCEA.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "1529557282",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OCAN.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572583",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "OEAN.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    },
+    {
+      "id": 2,
+      "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+      "phoneNumber": "15295572584",
+      "passWord": "2",
+      "avatarUrl": "",
+      "nickName": "CEAN.ZY",
+      "signWord": "",
+      "createTime": "11:23:23",
+      "updateTime": null,
+      "userGroups": []
+    }
+
+  ];
   return ListView.builder(
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: friends.length,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return friendItem(context, index);
+        return friendItem(context, friends[index]);
       });
 }
 
-Widget friendItem(context, index) {
+Widget friendItem(context, friend) {
+
+
   return Column(
     children: <Widget>[
       Container(
@@ -69,13 +182,13 @@ Widget friendItem(context, index) {
                     fit: BoxFit.cover)),
           ),
           title: Text(
-            "OCEAN.GZY",
+            friend["nickName"],
             style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
           ),
           onTap: () {
-            print(index);
+            print(friend);
+            Navigator.pushNamed(context, PageName.userdetial.toString(),arguments: Bundle()..putMap("userinfo", friend));
           },
-          onLongPress: () {},
         ),
       ),
       Divider(
