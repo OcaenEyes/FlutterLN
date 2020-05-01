@@ -1,5 +1,6 @@
 import 'package:oceanim/pages/layout/discovery/discovery.dart';
 import 'package:oceanim/pages/layout/firends/friends.dart';
+import 'package:oceanim/pages/layout/firends/add_friend.dart';
 import 'package:oceanim/pages/layout/message/message.dart';
 import 'package:oceanim/pages/layout/message/chatting.dart';
 import 'package:oceanim/pages/layout/login/login.dart';
@@ -16,7 +17,8 @@ enum PageName {
   mine,
   bottom_tab,
   chatting,
-  register
+  register,
+  add_friend,
 }
 final Map<PageName, PageBulider> pageRoutes = {
   PageName.login: PageBulider(buliderFunc: (bundle) => LoginPage()),
@@ -28,4 +30,5 @@ final Map<PageName, PageBulider> pageRoutes = {
       PageBulider(buliderFunc: (bundle) => BottomTabBar(bundle)),
   PageName.chatting: PageBulider(buliderFunc: (bundle) => ChattingPage(bundle)),
   PageName.register: PageBulider(buliderFunc: (bundle) => RegisterPage()),
+  PageName.add_friend: PageBulider(buliderFunc: (bundle) => AddFriendPage()),
 };

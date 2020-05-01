@@ -69,7 +69,7 @@ dynamic userCard() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "OCEAN.GZY",
+                widget.bundle.getMap("userInfo")["nickName"],
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 24,

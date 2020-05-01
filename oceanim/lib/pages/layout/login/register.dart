@@ -169,7 +169,7 @@ dynamic registerForm(context, passNode, phoneController, passController) {
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://127.0.0.1:8080/register", queryParameters: {
+                response = await dio.post("http://192.168.10.103:8080/register", queryParameters: {
                   "password": passController.text,
                   "phone": phoneController.text
                 });

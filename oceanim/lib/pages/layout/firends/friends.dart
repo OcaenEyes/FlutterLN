@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oceanim/router/page_routes.dart';
 
 class FriendsPage extends StatefulWidget {
   @override
@@ -89,11 +90,11 @@ dynamic tools() {
       shrinkWrap: true,
       itemCount: 4,
       itemBuilder: (context, index) {
-        return toolItem();
+        return toolItem(context,index);
       });
 }
 
-dynamic toolItem() {
+dynamic toolItem(context,index) {
   return Column(
     children: <Widget>[
       Container(
@@ -104,6 +105,10 @@ dynamic toolItem() {
         child: ListTile(
           leading: Icon(Icons.person_add),
           title: Text("朋友"),
+          onTap: (){
+            print(index);
+            Navigator.pushNamed(context, PageName.add_friend.toString(),arguments: null);
+          },
         ),
       ),
       Divider(
