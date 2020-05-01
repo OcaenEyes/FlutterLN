@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   FocusNode passNode = FocusNode();
+  FocusNode phoneNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
@@ -25,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: <Widget>[
           bg(),
-          login(context, passNode, phoneController, passController)
+          login(context,phoneNode, passNode, phoneController, passController)
         ],
       ),
     );
@@ -42,7 +43,7 @@ dynamic bg() {
   );
 }
 
-Widget login(context, passNode, phoneController, passController) {
+Widget login(context,phoneNode,  passNode, phoneController, passController) {
   return Container(
     width: MediaQuery.of(context).size.width,
     margin: EdgeInsets.only(top: 240),
@@ -53,7 +54,7 @@ Widget login(context, passNode, phoneController, passController) {
       child: ListView(
         children: <Widget>[
           loginTitle(),
-          loginForm(context, passNode, phoneController, passController),
+          loginForm(context,phoneNode, passNode, phoneController, passController),
           forgetPass(),
           register(context)
         ],
@@ -72,7 +73,7 @@ dynamic loginTitle() {
   );
 }
 
-dynamic loginForm(context, passNode, phoneController, passController) {
+dynamic loginForm(context,phoneNode, passNode, phoneController, passController) {
   return Container(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Column(
@@ -85,7 +86,9 @@ dynamic loginForm(context, passNode, phoneController, passController) {
                 controller: phoneController,
                 style: TextStyle(color: Colors.black),
                 keyboardType: TextInputType.number,
-                // maxLength: 11,
+                maxLength: 11,
+                // autofocus: true,
+                focusNode: phoneNode,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: '请输入手机号',
@@ -100,10 +103,13 @@ dynamic loginForm(context, passNode, phoneController, passController) {
               style: TextStyle(color: Colors.black),
               obscureText: true,
               controller: passController,
+              focusNode: passNode,
+              maxLength: 11,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '请输入密码',
                   prefixIcon: Icon(Icons.lock_outline),
+                  
                   labelStyle: TextStyle(fontSize: 13)),
             ),
           ),
@@ -145,27 +151,47 @@ dynamic loginForm(context, passNode, phoneController, passController) {
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://192.168.10.103:8080/login", queryParameters: {
-                  "password": passController.text,
-                  "phone": phoneController.text
-                });
+                response = await dio.post("http://192.168.10.103:8080/login",
+                    queryParameters: {
+                      "password": passController.text,
+                      "phone": phoneController.text
+                    });
                 print(response.data.toString());
-                if(response.data["code"] == "200"){
-                  userInfo= response.data["userInfo"];
+                if (response.data["code"] == "200") {
+                  userInfo = response.data["userInfo"];
                   Navigator.pushNamedAndRemoveUntil(
-                    context, PageName.bottom_tab.toString(), (route) => false,
-                    arguments: Bundle()..putMap("userInfo", userInfo));
-                }
-                else if(response.data["code"] == "101"){
-                  Fluttertoast.showToast(msg: "账号不存在",fontSize: 12,gravity: ToastGravity.TOP);
-                }
-                else if (response.data["code"] == "102"){
-                  Fluttertoast.showToast(msg: "账号密码错误",fontSize: 12,gravity: ToastGravity.TOP);
+                      context, PageName.bottom_tab.toString(), (route) => false,
+                      arguments: Bundle()..putMap("userInfo", userInfo));
+                } else if (response.data["code"] == "101") {
+                  Fluttertoast.showToast(
+                      msg: "账号不存在", fontSize: 12, gravity: ToastGravity.TOP);
+                  phoneController.text = "";
+                  passController.text = "";
+                  if(passNode.hasFocus){
+                    passNode.unfocus();
+                    FocusScope.of(context).requestFocus(phoneNode);
+                  }
+                } else if (response.data["code"] == "102") {
+                  Fluttertoast.showToast(
+                      msg: "账号密码错误", fontSize: 12, gravity: ToastGravity.TOP);
+                  phoneController.text = "";
+                  passController.text = "";
+                  if(passNode.hasFocus){
+                    passNode.unfocus();
+                   FocusScope.of(context).requestFocus(phoneNode);
+                  }
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "登录失败,请重试", fontSize: 12, gravity: ToastGravity.TOP);
 
-                }else{
-                  Fluttertoast.showToast(msg: "登录失败,请重试",fontSize: 12,gravity: ToastGravity.TOP);
+                  phoneController.text = "";
+                  passController.text = "";
+                  if(passNode.hasFocus){
+                    passNode.unfocus();
+                    FocusScope.of(context).requestFocus(phoneNode);
+                  }
                 }
-                 
+
                 // if (phoneController.text == '123456' &&
                 //     passController.text == '123456') {
                 //   print("账号密码正确");
@@ -174,7 +200,6 @@ dynamic loginForm(context, passNode, phoneController, passController) {
                 //     "avatarUrl": "assets/images/3.jpg",
                 //     "signName": "读书城南",
                 //   };
-                
               }, //since this is only a UI app
               child: Text(
                 '登录',

@@ -32,7 +32,7 @@ class _MinePageState extends State<MinePage> {
       // ),
       body: ListView(
         children: <Widget>[
-          userCard(widget),
+          userCard(widget, context),
           SizedBox(
             height: 10,
           ),
@@ -43,7 +43,7 @@ class _MinePageState extends State<MinePage> {
   }
 }
 
-dynamic userCard(widget) {
+dynamic userCard(widget, context) {
   return Card(
     child: Container(
       padding: EdgeInsets.fromLTRB(40, 30, 10, 0),
@@ -66,25 +66,41 @@ dynamic userCard(widget) {
           SizedBox(
             width: 30,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.bundle.getMap("userInfo")["nickName"],
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "账号：" + widget.bundle.getMap("userInfo")["phoneNumber"],
-                style: TextStyle(color: Colors.black38),
-              )
-            ],
+          GestureDetector(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  widget.bundle.getMap("userInfo")["nickName"],
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "账号：" + widget.bundle.getMap("userInfo")["phoneNumber"],
+                  style: TextStyle(color: Colors.black38),
+                )
+              ],
+            ),
+            onTap: () {
+              print("点击了个人信息");
+              var message = {
+                "text": "这是发给自己的消息哦",
+                "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+                "phoneNumber": widget.bundle.getMap("userinfo")["phoneNumber"],
+                "avatarUrl": "assets/images/3.jpg",
+                "nickName": widget.bundle.getMap("userinfo")["nickName"],
+                "recevieTime": "",
+              };
+              Navigator.pushNamedAndRemoveUntil(
+                  context, PageName.chatting.toString(), (route) => true,
+                  arguments: Bundle()..putMap("message", message));
+            },
           ),
         ],
       ),
