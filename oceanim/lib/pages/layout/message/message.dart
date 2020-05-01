@@ -39,7 +39,7 @@ class _MessagePageState extends State<MessagePage> {
                   //     ),
                   //   )
                   // ],
-                  items: popupMenuItem(),
+                  items: popupMenuItem(context),
                 );
               },
             )
@@ -123,11 +123,11 @@ Widget messageItem(context, index) {
   );
 }
 
-dynamic popupMenuItem() {
+dynamic popupMenuItem(context) {
   List popData = [
-    {'text': "发起群聊", 'icon': Icons.people},
-    {'text': "添加朋友", 'icon': Icons.person_add},
-    {'text': "扫一扫", 'icon': Icons.scatter_plot},
+    {'text': "发起群聊", 'icon': Icons.people,'page_name':PageName.add_friend.toString()},
+    {'text': "添加朋友", 'icon': Icons.person_add,'page_name':PageName.add_friend.toString()},
+    {'text': "扫一扫", 'icon': Icons.scatter_plot,'page_name':PageName.add_friend.toString()},
   ];
   return popData.map((item) {
     return PopupMenuItem(
@@ -135,6 +135,7 @@ dynamic popupMenuItem() {
       child: GestureDetector(
         onTap: () {
           print(item['text']);
+          Navigator.pushNamed(context, item['page_name'],arguments: null);
         },
         child: Container(
             alignment: Alignment.center,

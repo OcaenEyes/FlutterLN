@@ -19,7 +19,9 @@ class _FriendsPageState extends State<FriendsPage> {
           actions: <Widget>[
             GestureDetector(
               child: Icon(Icons.person_add),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, PageName.add_friend.toString(), arguments: null);
+              },
             )
           ],
         ),
@@ -86,15 +88,32 @@ Widget friendItem(context, index) {
 }
 
 dynamic tools() {
+  List toolData = [
+    {
+      'text': "心动",
+      'icon': Icons.face,
+      'page_name': PageName.heart.toString()
+    },
+    {
+      'text': "标签",
+      'icon': Icons.tag_faces,
+      'page_name': PageName.tag.toString()
+    },
+    {
+      'text': "群聊",
+      'icon': Icons.group,
+      'page_name': PageName.group.toString()
+    },
+  ];
   return ListView.builder(
       shrinkWrap: true,
-      itemCount: 4,
+      itemCount: toolData.length,
       itemBuilder: (context, index) {
-        return toolItem(context,index);
+        return toolItem(context,toolData[index]);
       });
 }
 
-dynamic toolItem(context,index) {
+dynamic toolItem(context,tool) {
   return Column(
     children: <Widget>[
       Container(
@@ -103,11 +122,11 @@ dynamic toolItem(context,index) {
         height: 66,
         padding: EdgeInsets.only(left: 10),
         child: ListTile(
-          leading: Icon(Icons.person_add),
-          title: Text("朋友"),
+          leading: Icon(tool['icon']),
+          title: Text(tool['text']),
           onTap: (){
-            print(index);
-            Navigator.pushNamed(context, PageName.add_friend.toString(),arguments: null);
+            print(tool);
+            Navigator.pushNamed(context, tool['page_name'],arguments: null);
           },
         ),
       ),

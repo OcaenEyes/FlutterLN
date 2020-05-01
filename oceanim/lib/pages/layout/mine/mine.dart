@@ -32,8 +32,10 @@ class _MinePageState extends State<MinePage> {
       // ),
       body: ListView(
         children: <Widget>[
-          userCard(),
-          SizedBox(height: 10,),
+          userCard(widget),
+          SizedBox(
+            height: 10,
+          ),
           tools(),
         ],
       ),
@@ -41,7 +43,7 @@ class _MinePageState extends State<MinePage> {
   }
 }
 
-dynamic userCard() {
+dynamic userCard(widget) {
   return Card(
     child: Container(
       padding: EdgeInsets.fromLTRB(40, 30, 10, 0),
@@ -79,7 +81,7 @@ dynamic userCard() {
                 height: 10,
               ),
               Text(
-                "账号：123456",
+                "账号：" + widget.bundle.getMap("userInfo")["phoneNumber"],
                 style: TextStyle(color: Colors.black38),
               )
             ],
@@ -91,15 +93,32 @@ dynamic userCard() {
 }
 
 dynamic tools() {
+  List toolData = [
+    {
+      'text': "发起群聊",
+      'icon': Icons.people,
+      'page_name': PageName.add_friend.toString()
+    },
+    {
+      'text': "添加朋友",
+      'icon': Icons.person_add,
+      'page_name': PageName.add_friend.toString()
+    },
+    {
+      'text': "扫一扫",
+      'icon': Icons.scatter_plot,
+      'page_name': PageName.add_friend.toString()
+    },
+  ];
   return ListView.builder(
       shrinkWrap: true,
-      itemCount: 4,
+      itemCount: toolData.length,
       itemBuilder: (context, index) {
-        return toolItem();
+        return toolItem(toolData[index], context);
       });
 }
 
-dynamic toolItem() {
+dynamic toolItem(tool, context) {
   return Column(
     children: <Widget>[
       Container(
@@ -108,8 +127,12 @@ dynamic toolItem() {
         height: 66,
         padding: EdgeInsets.only(left: 10),
         child: ListTile(
-          leading: Icon(Icons.settings),
-          title: Text("设置"),
+          onTap: () {
+            print(tool);
+            Navigator.pushNamed(context, tool['page_name'], arguments: null);
+          },
+          leading: Icon(tool['icon']),
+          title: Text(tool['text']),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ),
