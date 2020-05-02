@@ -148,7 +148,7 @@ dynamic toolItem(tool, context) {
             Navigator.pushNamed(context, tool['page_name'], arguments: null);
           },
           leading: Icon(tool['icon']),
-          title: Text(tool['text']),
+          title: Text(tool['text'],style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ),

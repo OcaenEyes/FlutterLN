@@ -86,7 +86,7 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
                 controller: phoneController,
                 style: TextStyle(color: Colors.black),
                 keyboardType: TextInputType.number,
-                maxLength: 11,
+                // maxLength: 11,
                 // autofocus: true,
                 focusNode: phoneNode,
                 decoration: InputDecoration(
@@ -104,7 +104,7 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
               obscureText: true,
               controller: passController,
               focusNode: passNode,
-              maxLength: 11,
+              // maxLength: 11,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '请输入密码',
