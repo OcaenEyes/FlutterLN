@@ -36,6 +36,8 @@ class _LaunchPageState extends State<LaunchPage> {
               context, PageName.bottom_tab.toString(), (route) => false)
           : Navigator.pushNamedAndRemoveUntil(
               context, PageName.login.toString(), (route) => false);
+      // Navigator.pushNamedAndRemoveUntil(
+      //         context, PageName.bottom_tab.toString(), (route) => false);
     });
   }
 
