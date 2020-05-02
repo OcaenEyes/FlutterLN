@@ -19,25 +19,23 @@ class _LaunchPageState extends State<LaunchPage> {
   void initState() {
     super.initState();
     opacityLevel = 0;
-     
-    _getLoginInformation().then((onValue){
+
+    _getLoginInformation().then((onValue) {
       islogininfo = onValue.existsSync();
-      print(islogininfo);
-      Future<String> content = onValue.readAsString();
-      print(content);
+      // print(islogininfo);
     });
-
-    ;
-    Future.delayed(Duration(seconds: 3), () {
-      islogininfo ? Navigator.pushNamedAndRemoveUntil(
-          context, PageName.bottom_tab.toString(), (route) => false) :Navigator.pushNamedAndRemoveUntil(
-          context, PageName.login.toString(), (route) => false)  ;
-    });
-
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
         opacityLevel = 1.0;
       });
+    });
+
+    Future.delayed(Duration(seconds: 3), () {
+      islogininfo
+          ? Navigator.pushNamedAndRemoveUntil(
+              context, PageName.bottom_tab.toString(), (route) => false)
+          : Navigator.pushNamedAndRemoveUntil(
+              context, PageName.login.toString(), (route) => false);
     });
   }
 
@@ -47,12 +45,12 @@ class _LaunchPageState extends State<LaunchPage> {
     return Stack(
       children: <Widget>[
         Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: Image.asset(
-          'assets/images/3.jpg',
-          fit: BoxFit.cover,
-        )),
+              'assets/images/3.jpg',
+              fit: BoxFit.cover,
+            )),
         Positioned(
           bottom: 60,
           left: 20,
@@ -95,7 +93,7 @@ class _LaunchPageState extends State<LaunchPage> {
   }
 }
 
-Future<File> _getLoginInformation() async{
+Future<File> _getLoginInformation() async {
   String dir = (await getApplicationSupportDirectory()).path;
   return File('$dir/LoginInformation');
 }

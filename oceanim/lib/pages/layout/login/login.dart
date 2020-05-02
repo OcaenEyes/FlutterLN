@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
+import 'package:path_provider/path_provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: <Widget>[
           bg(),
-          login(context,phoneNode, passNode, phoneController, passController)
+          login(context, phoneNode, passNode, phoneController, passController)
         ],
       ),
     );
@@ -43,7 +46,7 @@ dynamic bg() {
   );
 }
 
-Widget login(context,phoneNode,  passNode, phoneController, passController) {
+Widget login(context, phoneNode, passNode, phoneController, passController) {
   return Container(
     width: MediaQuery.of(context).size.width,
     margin: EdgeInsets.only(top: 240),
@@ -54,7 +57,8 @@ Widget login(context,phoneNode,  passNode, phoneController, passController) {
       child: ListView(
         children: <Widget>[
           loginTitle(),
-          loginForm(context,phoneNode, passNode, phoneController, passController),
+          loginForm(
+              context, phoneNode, passNode, phoneController, passController),
           forgetPass(),
           register(context)
         ],
@@ -73,7 +77,8 @@ dynamic loginTitle() {
   );
 }
 
-dynamic loginForm(context,phoneNode, passNode, phoneController, passController) {
+dynamic loginForm(
+    context, phoneNode, passNode, phoneController, passController) {
   return Container(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Column(
@@ -109,7 +114,6 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
                   border: OutlineInputBorder(),
                   labelText: '请输入密码',
                   prefixIcon: Icon(Icons.lock_outline),
-                  
                   labelStyle: TextStyle(fontSize: 13)),
             ),
           ),
@@ -159,6 +163,7 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
                 print(response.data.toString());
                 if (response.data["code"] == "200") {
                   userInfo = response.data["userInfo"];
+                  _savelogin("OCEAN.GZY", "读书城南", "assets/images/3.jpg");
                   Navigator.pushNamedAndRemoveUntil(
                       context, PageName.bottom_tab.toString(), (route) => false,
                       arguments: Bundle()..putMap("userInfo", userInfo));
@@ -167,7 +172,7 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
                       msg: "账号不存在", fontSize: 12, gravity: ToastGravity.TOP);
                   phoneController.text = "";
                   passController.text = "";
-                  if(passNode.hasFocus){
+                  if (passNode.hasFocus) {
                     passNode.unfocus();
                     FocusScope.of(context).requestFocus(phoneNode);
                   }
@@ -176,9 +181,9 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
                       msg: "账号密码错误", fontSize: 12, gravity: ToastGravity.TOP);
                   phoneController.text = "";
                   passController.text = "";
-                  if(passNode.hasFocus){
+                  if (passNode.hasFocus) {
                     passNode.unfocus();
-                   FocusScope.of(context).requestFocus(phoneNode);
+                    FocusScope.of(context).requestFocus(phoneNode);
                   }
                 } else {
                   Fluttertoast.showToast(
@@ -186,20 +191,11 @@ dynamic loginForm(context,phoneNode, passNode, phoneController, passController) 
 
                   phoneController.text = "";
                   passController.text = "";
-                  if(passNode.hasFocus){
+                  if (passNode.hasFocus) {
                     passNode.unfocus();
                     FocusScope.of(context).requestFocus(phoneNode);
                   }
                 }
-
-                // if (phoneController.text == '123456' &&
-                //     passController.text == '123456') {
-                //   print("账号密码正确");
-                //   var userInfo = {
-                //     "nickName": "OCEAN.GZY",
-                //     "avatarUrl": "assets/images/3.jpg",
-                //     "signName": "读书城南",
-                //   };
               }, //since this is only a UI app
               child: Text(
                 '登录',
@@ -258,4 +254,11 @@ dynamic forgetPass() {
       ),
     ),
   );
+}
+
+Future<Null> _savelogin(
+    String nickName, String signName, String avatarUrl) async {
+  String dir = (await getApplicationDocumentsDirectory()).path;
+  await new File('$dir/LoginInformation').writeAsString(
+      '{"nickName":"$nickName","signName":"$signName","avatarUrl":"$avatarUrl"}');
 }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oceanim/pages/tab/bottom_tab_bar.dart';
-import 'package:oceanim/pages/layout/login/login.dart';
 import 'package:oceanim/pages/layout/launch/launch.dart';
 import 'package:oceanim/router/page_router.dart';
 

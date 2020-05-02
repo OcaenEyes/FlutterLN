@@ -176,6 +176,7 @@ dynamic registerForm(context, passNode, phoneController, passController) {
                 print(response.data.toString());
                 if(response.data["code"] == "200"){
                   userInfo= response.data["userInfo"];
+                  _savelogin("OCEAN.GZY", "读书城南", "assets/images/3.jpg");
                   Navigator.pushNamedAndRemoveUntil(
                     context, PageName.bottom_tab.toString(), (route) => false,
                     arguments: Bundle()..putMap("userInfo", userInfo));
@@ -223,9 +224,9 @@ dynamic registerForm(context, passNode, phoneController, passController) {
       ));
 }
 
-Future<Null> _saveregister(
+Future<Null> _savelogin(
     String nickName, String signName, String avatarUrl) async {
   String dir = (await getApplicationDocumentsDirectory()).path;
-  await new File('$dir/registerInformation').writeAsString(
+  await new File('$dir/LoginInformation').writeAsString(
       '{"nickName":"$nickName","signName":"$signName","avatarUrl":"$avatarUrl"}');
 }
