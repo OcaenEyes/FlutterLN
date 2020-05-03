@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
+import 'package:oceanim/util/Address.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -155,7 +156,7 @@ dynamic loginForm(
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://192.168.10.102:8080/login",
+                response = await dio.post(Address.dev_base_url+"/login",
                     queryParameters: {
                       "password": passController.text,
                       "phone": phoneController.text

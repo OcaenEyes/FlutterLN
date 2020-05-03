@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
+import 'package:oceanim/util/Address.dart';
 
 class AddFriendPage extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
     if (phone != "") {
       Dio dio = new Dio();
       Response response;
-      response = await dio.get("http://192.168.10.102:8080/searchUser",
+      response = await dio.get(Address.dev_base_url+"/searchUser",
           queryParameters: {"phone": phone});
       print(response.data);
       setState(() {
