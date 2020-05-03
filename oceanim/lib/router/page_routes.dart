@@ -1,6 +1,7 @@
 import 'package:oceanim/pages/layout/discovery/discovery.dart';
 import 'package:oceanim/pages/layout/firends/friends.dart';
 import 'package:oceanim/pages/layout/firends/add_friend.dart';
+import 'package:oceanim/pages/layout/firends/add_friend_detial.dart';
 import 'package:oceanim/pages/layout/firends/group.dart';
 import 'package:oceanim/pages/layout/firends/heart.dart';
 import 'package:oceanim/pages/layout/firends/tag.dart';
@@ -34,13 +35,14 @@ enum PageName {
   collection,
   photo_album,
   userdetial,
-  qrscan
+  qrscan,
+  add_friend_detial
 
 }
 final Map<PageName, PageBulider> pageRoutes = {
   PageName.login: PageBulider(buliderFunc: (bundle) => LoginPage()),
   PageName.message: PageBulider(buliderFunc: (bundle) => MessagePage()),
-  PageName.friends: PageBulider(buliderFunc: (bundle) => FriendsPage()),
+  PageName.friends: PageBulider(buliderFunc: (bundle) => FriendsPage(bundle)),
   PageName.discovery: PageBulider(buliderFunc: (bundle) => DiscoveryPage()),
   PageName.mine: PageBulider(buliderFunc: (bundle) => MinePage(bundle)),
   PageName.collection: PageBulider(buliderFunc: (bundle) => CollectionPage()),
@@ -50,6 +52,7 @@ final Map<PageName, PageBulider> pageRoutes = {
   PageName.chatting: PageBulider(buliderFunc: (bundle) => ChattingPage(bundle)),
   PageName.register: PageBulider(buliderFunc: (bundle) => RegisterPage()),
   PageName.add_friend: PageBulider(buliderFunc: (bundle) => AddFriendPage()),
+  PageName.add_friend_detial: PageBulider(buliderFunc: (bundle) => AddUserDetialPage(bundle)),
   PageName.group: PageBulider(buliderFunc: (bundle) => GroupPage()),
   PageName.tag: PageBulider(buliderFunc: (bundle) => TagPage()),
   PageName.heart: PageBulider(buliderFunc: (bundle) => HeartPage()),

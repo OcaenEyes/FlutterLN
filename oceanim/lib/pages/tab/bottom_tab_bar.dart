@@ -72,7 +72,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
   void initState() {
     tabViewList
       ..add(MessagePage())
-      ..add(FriendsPage())
+      ..add(FriendsPage(widget.bundle))
       ..add(DiscoveryPage())
       ..add(MinePage(widget.bundle));
     super.initState();

@@ -21,6 +21,13 @@ class _ChattingPageState extends State<ChattingPage>
       new TextEditingController();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _textEditingController.dispose();
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     _receiveMsg(widget.bundle.getMap("message")["text"],widget.bundle.getMap("message")["nickName"],widget.bundle.getMap("message")["avatarUrl"]);

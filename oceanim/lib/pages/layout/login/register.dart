@@ -20,6 +20,13 @@ class _RegisterPageState extends State<RegisterPage> {
   FocusNode passNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    phoneController.dispose();
+    passController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,6 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          
           bg(),
           back(context),
           register(context, passNode, phoneController, passController)
@@ -67,24 +73,24 @@ Widget register(context, passNode, phoneController, passController) {
 
 dynamic back(context) {
   return Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: SizedBox(
-              height: kToolbarHeight,
-              child: Row(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Icon(Icons.arrow_back_ios, color: Colors.black),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              ),
+    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+    child: SizedBox(
+      height: kToolbarHeight,
+      child: Row(
+        children: <Widget>[
+          GestureDetector(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(Icons.arrow_back_ios, color: Colors.black),
             ),
-          );
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    ),
+  );
 }
 
 dynamic registerTitle() {
@@ -170,24 +176,24 @@ dynamic registerForm(context, passNode, phoneController, passController) {
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post(Address.dev_base_url+"/register", queryParameters: {
-                  "password": passController.text,
-                  "phone": phoneController.text
-                });
+                response = await dio.post(Address.dev_base_url + "/register",
+                    queryParameters: {
+                      "password": passController.text,
+                      "phone": phoneController.text
+                    });
                 print(response.data.toString());
-                if(response.data["code"] == "200"){
-                  userInfo= response.data["userInfo"];
+                if (response.data["code"] == "200") {
+                  userInfo = response.data["userInfo"];
                   writeUserInfoJson(userInfo);
                   Navigator.pushNamedAndRemoveUntil(
-                    context, PageName.bottom_tab.toString(), (route) => false,
-                    arguments: Bundle()..putMap("userInfo", userInfo));
-                }
-                else if(response.data["code"] == "103"){
-                  Fluttertoast.showToast(msg: "账号已存在",fontSize: 12,gravity: ToastGravity.TOP);
-
-                }
-                else{
-                  Fluttertoast.showToast(msg: "注册失败,请重试",fontSize: 12,gravity: ToastGravity.TOP);
+                      context, PageName.bottom_tab.toString(), (route) => false,
+                      arguments: Bundle()..putMap("userInfo", userInfo));
+                } else if (response.data["code"] == "103") {
+                  Fluttertoast.showToast(
+                      msg: "账号已存在", fontSize: 12, gravity: ToastGravity.TOP);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "注册失败,请重试", fontSize: 12, gravity: ToastGravity.TOP);
                 }
                 // print("被点击");
                 // if (phoneController.text == '15295572576' &&
@@ -199,7 +205,7 @@ dynamic registerForm(context, passNode, phoneController, passController) {
                 //     "avatarUrl": "assets/images/3.jpg",
                 //     "signName": "读书城南",
                 //   };
-                  
+
                 //   Navigator.pushNamedAndRemoveUntil(
                 //       context, PageName.bottom_tab.toString(), (route) => false,
                 //       arguments: Bundle()..putMap("userInfo", userInfo));
@@ -225,11 +231,13 @@ dynamic registerForm(context, passNode, phoneController, passController) {
       ));
 }
 
-writeUserInfoJson(userInfo) async{
-  try{
-    String  appDirPath = (await getApplicationDocumentsDirectory()).path;
-    await new File('$appDirPath/userInfoJson').writeAsString(userInfo);
-  }catch(err){
+writeUserInfoJson(userInfo) async {
+  try {
+    String appDirPath = (await getApplicationDocumentsDirectory()).path;
+    print("写入本地json:");
+    await new File('$appDirPath/userInfoJson')
+        .writeAsString(userInfo.toString());
+  } catch (err) {
     print(err);
   }
 }

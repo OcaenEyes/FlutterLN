@@ -24,9 +24,8 @@ class _LaunchPageState extends State<LaunchPage> {
         opacityLevel = 1.0;
       });
     });
-// readUserInfoJson().then(onValue){
-
-// };
+    // userInfo = readUserInfoJson();
+    var l = readUserInfoJson();
     print("布拉布拉:");
     print(userInfo);
     Future.delayed(Duration(seconds: 3), () {

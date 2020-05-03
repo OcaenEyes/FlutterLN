@@ -17,6 +17,13 @@ class _AddFriendPageState extends State<AddFriendPage> {
   var res;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _searchController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -110,7 +117,7 @@ dynamic searchResult(context, res, _searchController) {
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
               ),
               onTap: () {
-                Navigator.pushNamed(context, PageName.userdetial.toString(),
+                Navigator.pushNamed(context, PageName.add_friend_detial.toString(),
                     arguments: Bundle()..putMap("userinfo", res["userInfo"]));
               },
             ),

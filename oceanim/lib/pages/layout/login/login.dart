@@ -22,6 +22,13 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode phoneNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    phoneController.dispose();
+    passController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +163,7 @@ dynamic loginForm(
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post(Address.dev_base_url+"/login",
+                response = await dio.post(Address.dev_base_url + "/login",
                     queryParameters: {
                       "password": passController.text,
                       "phone": phoneController.text
@@ -257,12 +264,12 @@ dynamic forgetPass() {
   );
 }
 
-
-writeUserInfoJson(userInfo) async{
-  try{
-    String  appDirPath = (await getApplicationDocumentsDirectory()).path;
-    await new File('$appDirPath/userInfoJson').writeAsString(userInfo);
-  }catch(err){
+writeUserInfoJson(userInfo) async {
+  try {
+    String appDirPath = (await getApplicationDocumentsDirectory()).path;
+    await new File('$appDirPath/userInfoJson')
+        .writeAsString(userInfo.toString());
+  } catch (err) {
     print(err);
   }
 }
