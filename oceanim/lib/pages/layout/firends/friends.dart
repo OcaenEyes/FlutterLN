@@ -35,7 +35,7 @@ class _FriendsPageState extends State<FriendsPage> {
               child: Icon(Icons.person_add),
               onTap: () {
                 Navigator.pushNamed(context, PageName.add_friend.toString(),
-                    arguments: null);
+                    arguments: widget.bundle);
               },
             )
           ],

@@ -5,6 +5,8 @@ import 'package:oceanim/router/page_routes.dart';
 import 'package:oceanim/util/Address.dart';
 
 class AddFriendPage extends StatefulWidget {
+  final Bundle bundle;
+  AddFriendPage(this.bundle);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -92,9 +94,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
       ),
     );
   }
-}
-
-dynamic searchResult(context, res, _searchController) {
+  dynamic searchResult(context, res, _searchController) {
   if (res != null) {
     return res["userInfo"] != null
         ? Container(
@@ -116,9 +116,12 @@ dynamic searchResult(context, res, _searchController) {
                 res["userInfo"]["nickName"],
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
               ),
-              onTap: () {
+              onTap: () { 
                 Navigator.pushNamed(context, PageName.add_friend_detial.toString(),
-                    arguments: Bundle()..putMap("userinfo", res["userInfo"]));
+                    arguments: Bundle()..putMap("data",{
+                      "friendInfo":res["userInfo"],
+                      "phone":widget.bundle.getMap("userInfo")["phoneNumber"],
+                      }));
               },
             ),
           )
@@ -133,3 +136,6 @@ dynamic searchResult(context, res, _searchController) {
     );
   }
 }
+
+}
+

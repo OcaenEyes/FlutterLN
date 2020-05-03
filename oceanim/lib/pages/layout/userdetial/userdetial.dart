@@ -18,7 +18,10 @@ class _UserDetialPageState extends State<UserDetialPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.bundle.getMap("userinfo")["nickName"]),
+        title: Text(
+          "用户详情"
+          // widget.bundle.getMap("userinfo")["nickName"]
+          ),
       ),
       // backgroundColor: Colors.white,
       body: Column(

@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
+import 'package:oceanim/util/Address.dart';
 
 class AddUserDetialPage extends StatefulWidget {
   final Bundle bundle;
@@ -13,12 +18,15 @@ class AddUserDetialPage extends StatefulWidget {
 }
 
 class _AddUserDetialPageState extends State<AddUserDetialPage> {
+  Dio dio = new Dio();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.bundle.getMap("userinfo")["nickName"]),
+        title: Text("用户详情"
+            // widget.bundle.getMap("data")["friendInfo"]["nickName"]
+            ),
       ),
       // backgroundColor: Colors.white,
       body: Column(
@@ -74,7 +82,7 @@ class _AddUserDetialPageState extends State<AddUserDetialPage> {
               leading: Icon(Icons.phone),
               title: Text("联系方式"),
               trailing: Text(
-                widget.bundle.getMap("userinfo")["phoneNumber"],
+                widget.bundle.getMap("data")["friendInfo"]["phoneNumber"],
                 style: TextStyle(color: Colors.green),
               ),
             ),
@@ -105,18 +113,39 @@ class _AddUserDetialPageState extends State<AddUserDetialPage> {
             color: Colors.black,
             textColor: Colors.white,
             child: Text("添加为好友"),
-            onPressed: () {
-              var message = {
-                "text": "biu biu biu",
-                "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
-                "phoneNumber": widget.bundle.getMap("userinfo")["phoneNumber"],
-                "avatarUrl": widget.bundle.getMap("userinfo")["avatarUrl"],
-                "nickName": widget.bundle.getMap("userinfo")["nickName"],
-                "recevieTime": "四天前",
-              };
-              Navigator.pushNamedAndRemoveUntil(
-                  context, PageName.chatting.toString(), (route) => true,
-                  arguments: Bundle()..putMap("message", message));
+            onPressed: () async {
+              Response response;
+              try {
+                response = await dio.post(
+                  Address.dev_base_url + "/saveFriend",
+                  queryParameters: {
+                    "phone": widget.bundle.getMap("data")["phone"],
+                    "friendinfo":widget.bundle.getMap("data")["friendInfo"]
+                  },
+                );
+                if (response.data["code"] == 200) {
+                  Fluttertoast.showToast(
+                      msg: "添加成功", fontSize: 12, gravity: ToastGravity.TOP);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, PageName.chatting.toString(), (route) => true,
+                      arguments: widget.bundle.getMap("data")["friendInfo"]);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "添加失败", fontSize: 12, gravity: ToastGravity.TOP);
+                }
+              } catch (e) {
+                Fluttertoast.showToast(
+                    msg: "添加好友异常", fontSize: 12, gravity: ToastGravity.TOP);
+              }
+
+              // var message = {
+              //   "text": "biu biu biu",
+              //   "userId": "4ca6e7c5-a2ec-41a7-b904-0f8de25cddf6",
+              //   "phoneNumber": widget.bundle.getMap("data")["friendInfo"]["phoneNumber"],
+              //   "avatarUrl": widget.bundle.getMap("data")["friendInfo"]["avatarUrl"],
+              //   "nickName": widget.bundle.getMap("data")["friendInfo"]["nickName"],
+              //   "recevieTime": "四天前",
+              // };
             },
           ),
         ],
@@ -140,8 +169,8 @@ dynamic _friendinfo(widget) {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
-                  image:
-                      AssetImage(widget.bundle.getMap("userinfo")["avatarUrl"]),
+                  image: AssetImage(
+                      widget.bundle.getMap("data")["friendInfo"]["avatarUrl"]),
                   fit: BoxFit.cover)),
         ),
         SizedBox(
@@ -153,21 +182,22 @@ dynamic _friendinfo(widget) {
             Container(
               padding: EdgeInsets.all(4),
               child: Text(
-                widget.bundle.getMap("userinfo")["nickName"],
+                widget.bundle.getMap("data")["friendInfo"]["nickName"],
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
               padding: EdgeInsets.all(4),
               child: Text(
-                "账号：" + widget.bundle.getMap("userinfo")["phoneNumber"],
+                "账号：" +
+                    widget.bundle.getMap("data")["friendInfo"]["phoneNumber"],
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
               ),
             ),
             Container(
               padding: EdgeInsets.all(4),
               child: Text(
-                "签名：" + widget.bundle.getMap("userinfo")["signWord"],
+                "签名：" + widget.bundle.getMap("data")["friendInfo"]["signWord"],
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200),
               ),
             ),
