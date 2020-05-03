@@ -155,7 +155,7 @@ dynamic loginForm(
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://192.168.10.103:8080/login",
+                response = await dio.post("http://192.168.10.102:8080/login",
                     queryParameters: {
                       "password": passController.text,
                       "phone": phoneController.text
@@ -163,7 +163,7 @@ dynamic loginForm(
                 print(response.data.toString());
                 if (response.data["code"] == "200") {
                   userInfo = response.data["userInfo"];
-                  _savelogin("OCEAN.GZY", "读书城南", "assets/images/3.jpg");
+                  writeUserInfoJson(userInfo);
                   Navigator.pushNamedAndRemoveUntil(
                       context, PageName.bottom_tab.toString(), (route) => false,
                       arguments: Bundle()..putMap("userInfo", userInfo));
@@ -256,9 +256,12 @@ dynamic forgetPass() {
   );
 }
 
-Future<Null> _savelogin(
-    String nickName, String signName, String avatarUrl) async {
-  String dir = (await getApplicationDocumentsDirectory()).path;
-  await new File('$dir/LoginInformation').writeAsString(
-      '{"nickName":"$nickName","signName":"$signName","avatarUrl":"$avatarUrl"}');
+
+writeUserInfoJson(userInfo) async{
+  try{
+    String  appDirPath = (await getApplicationDocumentsDirectory()).path;
+    await new File('$appDirPath/userInfoJson').writeAsString(userInfo);
+  }catch(err){
+    print(err);
+  }
 }

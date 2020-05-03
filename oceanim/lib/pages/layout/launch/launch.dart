@@ -14,26 +14,26 @@ class LaunchPage extends StatefulWidget {
 
 class _LaunchPageState extends State<LaunchPage> {
   double opacityLevel;
-  bool islogininfo;
+  var userInfo;
   @override
   void initState() {
     super.initState();
     opacityLevel = 0;
-
-    _getLoginInformation().then((onValue) {
-      islogininfo = onValue.existsSync();
-      // print(islogininfo);
-    });
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
         opacityLevel = 1.0;
       });
     });
+// readUserInfoJson().then(onValue){
 
+// };
+    print("布拉布拉:");
+    print(userInfo);
     Future.delayed(Duration(seconds: 3), () {
-      islogininfo
+      userInfo != null
           ? Navigator.pushNamedAndRemoveUntil(
-              context, PageName.bottom_tab.toString(), (route) => false)
+              context, PageName.bottom_tab.toString(), (route) => false,
+              arguments: userInfo)
           : Navigator.pushNamedAndRemoveUntil(
               context, PageName.login.toString(), (route) => false);
       // Navigator.pushNamedAndRemoveUntil(
@@ -95,7 +95,12 @@ class _LaunchPageState extends State<LaunchPage> {
   }
 }
 
-Future<File> _getLoginInformation() async {
-  String dir = (await getApplicationSupportDirectory()).path;
-  return File('$dir/LoginInformation');
+readUserInfoJson() async {
+  try {
+    String appDirPath = (await getApplicationDocumentsDirectory()).path;
+    print(File('$appDirPath/userInfoJson').readAsString());
+    return File('$appDirPath/userInfoJson').readAsString();
+  } catch (err) {
+    print(err);
+  }
 }
