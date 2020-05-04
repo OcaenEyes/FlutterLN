@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oceanim/models/userModel.dart';
 import 'package:oceanim/router/page_builder.dart';
 import 'package:oceanim/router/page_routes.dart';
 import 'package:oceanim/util/Address.dart';
@@ -114,16 +115,22 @@ class _AddUserDetialPageState extends State<AddUserDetialPage> {
             textColor: Colors.white,
             child: Text("添加为好友"),
             onPressed: () async {
+              print("被点击了");
               Response response;
+              UserModel userModel = UserModel.fromJson(widget.bundle.getMap("data")["friendInfo"]);
+              print(userModel);
               try {
                 response = await dio.post(
                   Address.dev_base_url + "/saveFriend",
                   queryParameters: {
                     "phone": widget.bundle.getMap("data")["phone"],
-                    "friendinfo":widget.bundle.getMap("data")["friendInfo"]
+                    // "friendinfo":widget.bundle.getMap("data")["friendInfo"]
+                    "friendinfo":userModel
                   },
                 );
-                if (response.data["code"] == 200) {
+                print(response.data);
+                print(widget.bundle.getMap("data")["friendInfo"]);
+                if (response.data["code"] == "200") {
                   Fluttertoast.showToast(
                       msg: "添加成功", fontSize: 12, gravity: ToastGravity.TOP);
                   Navigator.pushNamedAndRemoveUntil(
