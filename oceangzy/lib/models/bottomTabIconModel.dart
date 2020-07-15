@@ -43,7 +43,7 @@ part 'bottomTabIconModel.g.dart';
   int id;
 
   @JsonKey(name: 'textColor')
-  String textColor;
+  int textColor;
 
   @JsonKey(name: 'iconImage')
   String iconImage;

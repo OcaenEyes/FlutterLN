@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:oceangzy/models/bottomTabIconModel.dart';
 
@@ -31,6 +32,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
   Map<String, dynamic> iconDic = {};
   BottomTabIconModel _bottomTabIconModel;
   int _currentIndex = 0;
+  List<IconList> _iconList;
 
   @override
   void initState() {
@@ -44,17 +46,13 @@ class _BottomTabBarState extends State<BottomTabBar> {
     // TODO: implement build
     return Scaffold(
       bottomNavigationBar: new BottomNavigationBar(
-        items: tabBarIconList
-            .map((e) => BottomNavigationBarItem(
-                icon: Icon(
-                  e.iconId,
-                  color: e.color,
-                ),
-                title: Text(
-                  e.iconName,
-                  style: TextStyle(fontSize: 12, color: e.color),
-                )))
-            .toList(),
+        items: _iconList.map((item) {
+          return BottomNavigationBarItem(
+            // backgroundColor: Colors.white,
+            icon: ImageIcon(NetworkImage(item.iconImage)) ,
+            title: Text(item.iconName,style: TextStyle(color: Color(item.textColor)),)
+          );
+        }).toList(),
         onTap: _onTapBottomTab,
         currentIndex: _currentIndex,
       ),
@@ -68,36 +66,44 @@ class _BottomTabBarState extends State<BottomTabBar> {
         "iconList": [
           {
             "id": 0,
-            "textColor": "#000",
-            "iconImage": "",
+            "textColor": 0xFF000000,
+            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "首页",
           },
           {
             "id": 1,
-            "textColor": "#000",
-            "iconImage": "",
+            "textColor": 0xFF000000,
+            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "发现",
           },
           {
             "id": 2,
-            "textColor": "#000",
-            "iconImage": "",
+            "textColor": 0xFF000000,
+            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "消息",
           },
           {
             "id": 3,
-            "textColor": "#000",
-            "iconImage": "",
+            "textColor": 0xFF000000,
+            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "我的",
           }
         ]
       }
     };
-    BottomTabIconModel bottomTabIconModel = BottomTabIconModel.fromJson(response);
+    print(tabBarIconList);
+
+    BottomTabIconModel bottomTabIconModel =
+        BottomTabIconModel.fromJson(response);
     List<IconList> iconList = bottomTabIconModel.data.iconList;
-    IconList iconList1 = iconList[0];
-    print(iconList1.iconName);
-   
+    _iconList = iconList;
+    print(_iconList);
+
+
+    String json1 = json.encode(bottomTabIconModel);
+    print(json1);
+  
+
   }
 
   _jsonTest() {}

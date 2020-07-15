@@ -37,7 +37,7 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
 IconList _$IconListFromJson(Map<String, dynamic> json) {
   return IconList(
     json['id'] as int,
-    json['textColor'] as String,
+    json['textColor'] as int,
     json['iconImage'] as String,
     json['iconName'] as String,
   );
