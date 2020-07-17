@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:oceangzy/pages/layout/information/information_page.dart';
+import 'package:oceangzy/pages/layout/home/home_page.dart';
 import 'package:oceangzy/models/bottomTabIconModel.dart';
 
 class BottomTabBar extends StatefulWidget {
@@ -30,28 +32,31 @@ var tabBarIconList = [
 
 class _BottomTabBarState extends State<BottomTabBar> {
   Map<String, dynamic> iconDic = {};
-  BottomTabIconModel _bottomTabIconModel;
   int _currentIndex = 0;
   List<IconList> _iconList;
-
+  List<Widget> tabViewList = List();
   @override
   void initState() {
-    super.initState();
+    tabViewList..add(HomePage())..add(InformationPage());
     _getIconDic();
     _jsonTest();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      body: tabViewList[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
-            // backgroundColor: Colors.white,
-            icon: ImageIcon(NetworkImage(item.iconImage)) ,
-            title: Text(item.iconName,style: TextStyle(color: Color(item.textColor)),)
-          );
+              // backgroundColor: Colors.white,
+              icon: ImageIcon(NetworkImage(item.iconImage)),
+              title: Text(
+                item.iconName,
+                style: TextStyle(color: Color(item.textColor)),
+              ));
         }).toList(),
         onTap: _onTapBottomTab,
         currentIndex: _currentIndex,
@@ -67,27 +72,31 @@ class _BottomTabBarState extends State<BottomTabBar> {
           {
             "id": 0,
             "textColor": 0xFF000000,
-            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+            "iconImage":
+                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "首页",
           },
           {
             "id": 1,
             "textColor": 0xFF000000,
-            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+            "iconImage":
+                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "发现",
           },
-          {
-            "id": 2,
-            "textColor": 0xFF000000,
-            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "消息",
-          },
-          {
-            "id": 3,
-            "textColor": 0xFF000000,
-            "iconImage": "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "我的",
-          }
+          // {
+          //   "id": 2,
+          //   "textColor": 0xFF000000,
+          //   "iconImage":
+          //       "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+          //   "iconName": "消息",
+          // },
+          // {
+          //   "id": 3,
+          //   "textColor": 0xFF000000,
+          //   "iconImage":
+          //       "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+          //   "iconName": "我的",
+          // }
         ]
       }
     };
@@ -99,11 +108,8 @@ class _BottomTabBarState extends State<BottomTabBar> {
     _iconList = iconList;
     print(_iconList);
 
-
     String json1 = json.encode(bottomTabIconModel);
     print(json1);
-  
-
   }
 
   _jsonTest() {}
