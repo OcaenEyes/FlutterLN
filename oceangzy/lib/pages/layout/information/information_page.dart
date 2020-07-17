@@ -15,11 +15,16 @@ class InformationPage extends StatefulWidget {
 
 class _InformationPageState extends State<InformationPage> {
   List<Content> _content;
+  int _pn;
+  bool _isfirst;
+  bool _islast;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
     // TODO: implement initState
     _getInformation();
+    _islast == false ? _getMoreInformation(_pn) : print("到最后了");
     super.initState();
   }
 
@@ -33,7 +38,9 @@ class _InformationPageState extends State<InformationPage> {
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
+              physics: AlwaysScrollableScrollPhysics(),
               itemCount: _content.length,
+              controller: _scrollController,
               itemBuilder: (context, index) {
                 return Container(
                   width: 340,
@@ -80,23 +87,35 @@ class _InformationPageState extends State<InformationPage> {
                     ),
                   ),
                 );
-              }),
+              },
+            ),
     );
   }
 
   _getInformation() async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
+      Response response = await Dio().get(
+          "http://localhost:8081/getYouOneInfo",
           queryParameters: {'page': 1});
-      // print(response);
+      print(response);
       Map map = response.data;
       YouoneInformationModel youoneInformationModel =
           YouoneInformationModel.fromJson(map);
       List<Content> content = youoneInformationModel.content;
+      int pn = youoneInformationModel.pageNum;
+      bool isfirst = youoneInformationModel.first;
+      bool islast = youoneInformationModel.last;
+      // print(pn);
       setState(() {
         _content = content;
-        print(_content);
+        _pn = pn;
+        _isfirst = isfirst;
+        _islast = islast;
+        // print(_content);
+        print(_pn);
+        print(_isfirst);
+        print(_islast);
       });
     } catch (e) {
       print(e);
@@ -206,5 +225,35 @@ class _InformationPageState extends State<InformationPage> {
     //     YouoneInformationModel.fromJson(response);
     // List<Content> content = youoneInformationModel.content;
     // _content = content;
+  }
+
+  _getMoreInformation(n) async {
+    try {
+      FormData formaData = new FormData.fromMap({});
+      Response response = await Dio().get(
+          "http://localhost:8081/getYouOneInfo",
+          queryParameters: {'page': n + 1});
+      // print(response);
+      Map map = response.data;
+      YouoneInformationModel youoneInformationModel =
+          YouoneInformationModel.fromJson(map);
+      List<Content> content = youoneInformationModel.content;
+      int pn = youoneInformationModel.pageNum;
+      bool isfirst = youoneInformationModel.first;
+      bool islast = youoneInformationModel.last;
+      // print(pn);
+      setState(() {
+        _content = content;
+        _pn = pn;
+        _isfirst = isfirst;
+        _islast = islast;
+        // print(_content);
+        print(_pn);
+        print(_isfirst);
+        print(_islast);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }
