@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:oceangzy/models/youoneInformationModel.dart';
 
 class InformationPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class InformationPage extends StatefulWidget {
 }
 
 class _InformationPageState extends State<InformationPage> {
-  List<Content> _content;
+  List<Content> _content = [];
   int _pn;
   bool _isfirst;
   bool _islast;
@@ -23,9 +24,22 @@ class _InformationPageState extends State<InformationPage> {
   @override
   void initState() {
     // TODO: implement initState
-    _getInformation();
-    _islast == false ? _getMoreInformation(_pn) : print("到最后了");
+    _getInformation(_pn);
+    //
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print("到底了");
+        _islast == false ? _getInformation(_pn + 1) : print("没有更多的数据了");
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,67 +51,84 @@ class _InformationPageState extends State<InformationPage> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              physics: AlwaysScrollableScrollPhysics(),
-              itemCount: _content.length,
-              controller: _scrollController,
-              itemBuilder: (context, index) {
-                return Container(
-                  width: 340,
-                  padding: EdgeInsets.all(20),
+          : RefreshIndicator(
+              child: ListView.builder(
+                // physics: AlwaysScrollableScrollPhysics(),
+                itemCount: _content.length,
+                controller: _scrollController,
+                itemBuilder: (context, index) {
+                  return index == _content.length
+                      ? _loadingMore
+                      : Container(
+                          width: 340,
+                          padding: EdgeInsets.all(20),
 
-                  // height: 240,
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                            width: 300,
-                            child: Row(
+                          // height: 240,
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text(
-                                  _content[index].textNum.toString(),
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(_content[index].imgAuther.toString()),
-                                Text(_content[index].day.toString() +
-                                    '/' +
-                                    _content[index].mon.toString())
-                              ],
-                            )),
+                                Container(
+                                    width: 300,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          _content[index].textNum.toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(_content[index]
+                                            .imgAuther
+                                            .toString()),
+                                        Text(_content[index].day.toString() +
+                                            '/' +
+                                            _content[index].mon.toString())
+                                      ],
+                                    )),
 
-                        Container(
-                          width: 300,
-                          height: 200,
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: NetworkImage(_content[index].imgUrl),
-                                  fit: BoxFit.cover)),
-                        ),
-                        // Text(_content[index].imgUrl.toString()),
-                        Container(
-                          width: 300,
-                          child: Text(_content[index].textContent.toString()),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+                                Container(
+                                  width: 300,
+                                  height: 200,
+                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              _content[index].imgUrl),
+                                          fit: BoxFit.cover)),
+                                ),
+                                // Text(_content[index].imgUrl.toString()),
+                                Container(
+                                  width: 300,
+                                  child: Text(
+                                      _content[index].textContent.toString()),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                },
+              ),
+              onRefresh: _refreshInformation),
     );
   }
 
-  _getInformation() async {
+  Future<dynamic> _refreshInformation() async {
+    Future.delayed(Duration(seconds: 2), () {
+      print("等2秒");
+      print("下拉刷新");
+      _getInformation(0);
+    });
+  }
+
+  _getInformation(int i) async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get(
-          "http://localhost:8081/getYouOneInfo",
-          queryParameters: {'page': 1});
+      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
+          queryParameters: {'page': i});
       print(response);
       Map map = response.data;
       YouoneInformationModel youoneInformationModel =
@@ -106,13 +137,12 @@ class _InformationPageState extends State<InformationPage> {
       int pn = youoneInformationModel.pageNum;
       bool isfirst = youoneInformationModel.first;
       bool islast = youoneInformationModel.last;
-      // print(pn);
       setState(() {
-        _content = content;
+        _content.addAll(content);
         _pn = pn;
         _isfirst = isfirst;
         _islast = islast;
-        // print(_content);
+        print(_content);
         print(_pn);
         print(_isfirst);
         print(_islast);
@@ -196,7 +226,7 @@ class _InformationPageState extends State<InformationPage> {
     //       "imgUrl": "http://image.wufazhuce.com/Fu5BfK9yimn4YUSNadXcTzskqyPx",
     //       "textNum": "VOL.2616",
     //       "imgAuther": "国画",
-    //       "textContent": "世上的事，认真不对，不认真更不对，执着不对，一切视作空也不对，平平常常，自自然然。",
+    //       "textContent": "世上的事，认真不对，不认真更不对，执着不对，一切视��空也不对，平平常常，自自然然。",
     //       "mon": "Dec 2019",
     //       "day": "5"
     //     },
@@ -227,33 +257,26 @@ class _InformationPageState extends State<InformationPage> {
     // _content = content;
   }
 
-  _getMoreInformation(n) async {
-    try {
-      FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get(
-          "http://localhost:8081/getYouOneInfo",
-          queryParameters: {'page': n + 1});
-      // print(response);
-      Map map = response.data;
-      YouoneInformationModel youoneInformationModel =
-          YouoneInformationModel.fromJson(map);
-      List<Content> content = youoneInformationModel.content;
-      int pn = youoneInformationModel.pageNum;
-      bool isfirst = youoneInformationModel.first;
-      bool islast = youoneInformationModel.last;
-      // print(pn);
-      setState(() {
-        _content = content;
-        _pn = pn;
-        _isfirst = isfirst;
-        _islast = islast;
-        // print(_content);
-        print(_pn);
-        print(_isfirst);
-        print(_islast);
-      });
-    } catch (e) {
-      print(e);
-    }
+  _loadingMore() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 14, 0, 14),
+      child: Opacity(
+        opacity: 1.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new SpinKitChasingDots(
+              color: Colors.black54,
+              size: 18,
+            ),
+            Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                child: new Text('正在加载中...'))
+          ],
+        ),
+      ),
+    );
   }
 }
