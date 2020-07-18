@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceangzy/models/youoneInformationModel.dart';
 
 class InformationPage extends StatefulWidget {
@@ -29,8 +30,25 @@ class _InformationPageState extends State<InformationPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        print("到底了");
-        _islast == false ? _getInformation(_pn + 1) : print("没有更多的数据了");
+        Fluttertoast.showToast(
+            msg: "已加载更多内容",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 12);
+        _islast == false
+            ? _getInformation(_pn + 1)
+            : Fluttertoast.showToast(
+                msg: "没有更多了",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.white,
+                textColor: Colors.black,
+                fontSize: 12);
+        ;
       }
     });
     super.initState();
@@ -118,16 +136,63 @@ class _InformationPageState extends State<InformationPage> {
 
   Future<dynamic> _refreshInformation() async {
     Future.delayed(Duration(seconds: 2), () {
-      print("等2秒");
-      print("下拉刷新");
-      _getInformation(0);
+      _freshInformation();
     });
+  }
+
+  _freshInformation() async {
+    try {
+      Response response = await Dio().get(
+          "http://192.168.10.104:8081/getYouOneInfo",
+          queryParameters: {'page': 0});
+      print(response);
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+            msg: "刷新成功",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 12);
+
+        Map map = response.data;
+        YouoneInformationModel youoneInformationModel =
+            YouoneInformationModel.fromJson(map);
+        List<Content> content = youoneInformationModel.content;
+        int pn = youoneInformationModel.pageNum;
+        bool isfirst = youoneInformationModel.first;
+        bool islast = youoneInformationModel.last;
+        setState(() {
+          _content = content;
+          _pn = pn;
+          _isfirst = isfirst;
+          _islast = islast;
+          print(_content);
+          print(_pn);
+          print(_isfirst);
+          print(_islast);
+        });
+      } else {
+        Fluttertoast.showToast(
+            msg: "刷新失败",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 12);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   _getInformation(int i) async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
+      Response response = await Dio().get(
+          "http://192.168.10.104:8081/getYouOneInfo",
           queryParameters: {'page': i});
       print(response);
       Map map = response.data;
