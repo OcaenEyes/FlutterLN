@@ -49,9 +49,10 @@ class _BottomTabBarState extends State<BottomTabBar> {
     return Scaffold(
       body: tabViewList[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
+        backgroundColor: Colors.black,
+        
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
-              // backgroundColor: Colors.white,
               icon: ImageIcon(NetworkImage(item.iconImage)),
               title: Text(
                 item.iconName,
@@ -71,14 +72,14 @@ class _BottomTabBarState extends State<BottomTabBar> {
         "iconList": [
           {
             "id": 0,
-            "textColor": 0xFF000000,
+            "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "首页",
           },
           {
             "id": 1,
-            "textColor": 0xFF000000,
+            "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "发现",
@@ -107,6 +108,8 @@ class _BottomTabBarState extends State<BottomTabBar> {
     List<IconList> iconList = bottomTabIconModel.data.iconList;
     _iconList = iconList;
     print(_iconList);
+    print(bottomTabIconModel.data.iconList[0].textColor);
+    
 
     String json1 = json.encode(bottomTabIconModel);
     print(json1);

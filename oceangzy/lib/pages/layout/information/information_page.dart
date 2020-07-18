@@ -64,14 +64,13 @@ class _InformationPageState extends State<InformationPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.white24,
+      backgroundColor: Color(0xFF000000),
       body: _content == null || _content.length == 0
           ? Center(
               child: CircularProgressIndicator(),
             )
           : RefreshIndicator(
               child: ListView.builder(
-                // physics: AlwaysScrollableScrollPhysics(),
                 itemCount: _content.length,
                 controller: _scrollController,
                 itemBuilder: (context, index) {
@@ -79,10 +78,13 @@ class _InformationPageState extends State<InformationPage> {
                       ? _loadingMore
                       : Container(
                           width: 340,
-                          padding: EdgeInsets.all(20),
-
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                           // height: 240,
                           child: Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,20 +92,27 @@ class _InformationPageState extends State<InformationPage> {
                                 Container(
                                     width: 300,
                                     child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
                                           _content[index].textNum.toString(),
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 22),
                                         ),
-                                        Text(_content[index]
-                                            .imgAuther
-                                            .toString()),
-                                        Text(_content[index].day.toString() +
-                                            '/' +
-                                            _content[index].mon.toString())
+                                        Text(
+                                          _content[index].imgAuther.toString(),
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        Text(
+                                          _content[index].day.toString() +
+                                              '/' +
+                                              _content[index].mon.toString(),
+                                          style: TextStyle(fontSize: 18),
+                                        )
                                       ],
                                     )),
 
@@ -122,7 +131,9 @@ class _InformationPageState extends State<InformationPage> {
                                 Container(
                                   width: 300,
                                   child: Text(
-                                      _content[index].textContent.toString()),
+                                    _content[index].textContent.toString(),
+                                    style: TextStyle(fontSize: 18, height: 1.5),
+                                  ),
                                 )
                               ],
                             ),
@@ -142,8 +153,7 @@ class _InformationPageState extends State<InformationPage> {
 
   _freshInformation() async {
     try {
-      Response response = await Dio().get(
-          "http://192.168.10.104:8081/getYouOneInfo",
+      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
           queryParameters: {'page': 0});
       print(response);
       if (response.statusCode == 200) {
@@ -191,8 +201,7 @@ class _InformationPageState extends State<InformationPage> {
   _getInformation(int i) async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get(
-          "http://192.168.10.104:8081/getYouOneInfo",
+      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
           queryParameters: {'page': i});
       print(response);
       Map map = response.data;
