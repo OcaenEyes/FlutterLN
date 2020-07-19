@@ -87,7 +87,7 @@ class _InformationPageState extends State<InformationPage> {
                       ? _loadingMore
                       : Container(
                           width: 340,
-                          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                          padding: EdgeInsets.fromLTRB(20,8, 20, 12),
                           // height: 240,
                           child: Container(
                             padding: EdgeInsets.all(20),

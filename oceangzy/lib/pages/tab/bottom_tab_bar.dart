@@ -53,11 +53,12 @@ class _BottomTabBarState extends State<BottomTabBar> {
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
               backgroundColor: Colors.black,
-              icon: Image(
-                image: NetworkImage(item.iconImage),
-                width: 28,
-                height: 28,
-              ),
+              // icon: Image(
+              //   image: NetworkImage(item.iconImage),
+              //   width: 24,
+              //   height: 24,
+              // ),
+              icon: Icon(Icons.ac_unit),
               title: Text(
                 item.iconName,
                 style: TextStyle(color: Color(item.textColor)),
@@ -79,7 +80,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
             "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "Home",
+            "iconName": "Discover",
           },
           {
             "id": 1,
