@@ -183,9 +183,10 @@ class _InformationPageState extends State<InformationPage> {
   }
 
   Future<dynamic> _refreshInformation() async {
-    Future.delayed(Duration(seconds: 2), () {
-      _freshInformation();
-    });
+    // Future.delayed(Duration(seconds: 2), () {
+    //   _freshInformation();
+    // });
+    _freshInformation();
   }
 
   _freshInformation() async {
