@@ -96,7 +96,7 @@ class _InformationPageState extends State<InformationPage> {
                   return index == _content.length
                       ? _loadingMore
                       : Container(
-                          width: 340,
+                          width: MediaQuery.of(context).size.width-20,
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 12),
                           // height: 240,
                           child: Container(
@@ -109,7 +109,7 @@ class _InformationPageState extends State<InformationPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
-                                    width: 300,
+                                    width: MediaQuery.of(context).size.width,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
@@ -136,8 +136,8 @@ class _InformationPageState extends State<InformationPage> {
                                     )),
 
                                 Container(
-                                  width: 300,
-                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 220,
                                   margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(0),
@@ -148,7 +148,7 @@ class _InformationPageState extends State<InformationPage> {
                                 ),
                                 // Text(_content[index].imgUrl.toString()),
                                 Container(
-                                  width: 300,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Text(
                                     _content[index].textContent.toString(),
                                     style: TextStyle(fontSize: 18, height: 1.5),
