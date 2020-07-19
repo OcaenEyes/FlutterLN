@@ -21,6 +21,7 @@ class _InformationPageState extends State<InformationPage> {
   bool _isfirst;
   bool _islast;
   ScrollController _scrollController = new ScrollController();
+  bool _showBackTop = false;
 
   @override
   void initState() {
@@ -28,6 +29,16 @@ class _InformationPageState extends State<InformationPage> {
     _getInformation(_pn);
     //
     _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= 800) {
+        setState(() {
+          _showBackTop = true;
+        });
+      } else {
+        setState(() {
+          _showBackTop = false;
+        });
+      }
+
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         Fluttertoast.showToast(
@@ -48,7 +59,6 @@ class _InformationPageState extends State<InformationPage> {
                 backgroundColor: Colors.white,
                 textColor: Colors.black,
                 fontSize: 12);
-        ;
       }
     });
     super.initState();
@@ -87,7 +97,7 @@ class _InformationPageState extends State<InformationPage> {
                       ? _loadingMore
                       : Container(
                           width: 340,
-                          padding: EdgeInsets.fromLTRB(20,8, 20, 12),
+                          padding: EdgeInsets.fromLTRB(20, 8, 20, 12),
                           // height: 240,
                           child: Container(
                             padding: EdgeInsets.all(20),
@@ -151,6 +161,24 @@ class _InformationPageState extends State<InformationPage> {
                 },
               ),
               onRefresh: _refreshInformation),
+      floatingActionButton: _showBackTop
+          ? FloatingActionButton(
+              mini: true,
+              tooltip: "返回顶部",
+              onPressed: () {
+                // scrollController 通过 animateTo 方法滚动到某个具体高度
+                // duration 表示动画的时长，curve 表示动画的运行方式，flutter 在 Curves 提供了许多方式
+                _scrollController.animateTo(0.0,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.decelerate);
+              },
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.vertical_align_top,
+                color: Colors.black,
+              ),
+            )
+          : null,
     );
   }
 
