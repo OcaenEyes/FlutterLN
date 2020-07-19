@@ -52,7 +52,12 @@ class _BottomTabBarState extends State<BottomTabBar> {
         backgroundColor: Colors.black,
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
-              icon: ImageIcon(NetworkImage(item.iconImage)),
+              backgroundColor: Colors.black,
+              icon: Image(
+                image: NetworkImage(item.iconImage),
+                width: 28,
+                height: 28,
+              ),
               title: Text(
                 item.iconName,
                 style: TextStyle(color: Color(item.textColor)),
@@ -83,20 +88,20 @@ class _BottomTabBarState extends State<BottomTabBar> {
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "Daliy",
           },
-          // {
-          //   "id": 2,
-          //   "textColor": 0xFF000000,
-          //   "iconImage":
-          //       "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-          //   "iconName": "消息",
-          // },
-          // {
-          //   "id": 3,
-          //   "textColor": 0xFF000000,
-          //   "iconImage":
-          //       "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-          //   "iconName": "我的",
-          // }
+          {
+            "id": 2,
+            "textColor": 0xFFFFFFFF,
+            "iconImage":
+                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+            "iconName": "Message",
+          },
+          {
+            "id": 3,
+            "textColor": 0xFFFFFFFF,
+            "iconImage":
+                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+            "iconName": "Mine",
+          }
         ]
       }
     };

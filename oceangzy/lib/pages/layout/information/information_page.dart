@@ -78,6 +78,7 @@ class _InformationPageState extends State<InformationPage> {
               child: CircularProgressIndicator(),
             )
           : RefreshIndicator(
+              color: Colors.black,
               child: ListView.builder(
                 itemCount: _content.length,
                 controller: _scrollController,
