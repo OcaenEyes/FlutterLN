@@ -64,6 +64,14 @@ class _InformationPageState extends State<InformationPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text(
+          "Daliy",
+          style: TextStyle(color: Colors.white),
+        ),
+        brightness: Brightness.dark,
+      ),
       backgroundColor: Color(0xFF000000),
       body: _content == null || _content.length == 0
           ? Center(
@@ -83,7 +91,7 @@ class _InformationPageState extends State<InformationPage> {
                           child: Container(
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(4),
                                 color: Colors.white),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,7 +129,7 @@ class _InformationPageState extends State<InformationPage> {
                                   height: 200,
                                   margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(0),
                                       image: DecorationImage(
                                           image: NetworkImage(
                                               _content[index].imgUrl),
@@ -153,7 +161,8 @@ class _InformationPageState extends State<InformationPage> {
 
   _freshInformation() async {
     try {
-      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
+      Response response = await Dio().get(
+          "http://192.168.10.104:8081/getYouOneInfo",
           queryParameters: {'page': 0});
       print(response);
       if (response.statusCode == 200) {
@@ -201,7 +210,8 @@ class _InformationPageState extends State<InformationPage> {
   _getInformation(int i) async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
+      Response response = await Dio().get(
+          "http://192.168.10.104:8081/getYouOneInfo",
           queryParameters: {'page': i});
       print(response);
       Map map = response.data;

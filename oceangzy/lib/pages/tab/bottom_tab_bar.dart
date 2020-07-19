@@ -32,7 +32,7 @@ var tabBarIconList = [
 
 class _BottomTabBarState extends State<BottomTabBar> {
   Map<String, dynamic> iconDic = {};
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   List<IconList> _iconList;
   List<Widget> tabViewList = List();
   @override
@@ -50,7 +50,6 @@ class _BottomTabBarState extends State<BottomTabBar> {
       body: tabViewList[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
         backgroundColor: Colors.black,
-        
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
               icon: ImageIcon(NetworkImage(item.iconImage)),
@@ -75,14 +74,14 @@ class _BottomTabBarState extends State<BottomTabBar> {
             "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "首页",
+            "iconName": "Home",
           },
           {
             "id": 1,
             "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "发现",
+            "iconName": "Daliy",
           },
           // {
           //   "id": 2,
@@ -109,7 +108,6 @@ class _BottomTabBarState extends State<BottomTabBar> {
     _iconList = iconList;
     print(_iconList);
     print(bottomTabIconModel.data.iconList[0].textColor);
-    
 
     String json1 = json.encode(bottomTabIconModel);
     print(json1);
