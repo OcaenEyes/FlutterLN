@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceangzy/models/youoneInformationModel.dart';
+import 'package:oceangzy/router/page_builder.dart';
+import 'package:oceangzy/router/page_routes.dart';
 
 class InformationPage extends StatefulWidget {
   @override
@@ -96,7 +98,7 @@ class _InformationPageState extends State<InformationPage> {
                   return index == _content.length
                       ? _loadingMore
                       : Container(
-                          width: MediaQuery.of(context).size.width-20,
+                          width: MediaQuery.of(context).size.width - 20,
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 12),
                           // height: 240,
                           child: Container(
@@ -135,16 +137,25 @@ class _InformationPageState extends State<InformationPage> {
                                       ],
                                     )),
 
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 220,
-                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(0),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              _content[index].imgUrl),
-                                          fit: BoxFit.cover)),
+                                GestureDetector(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 220,
+                                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(0),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                _content[index].imgUrl),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        PageName.single_image.toString(),
+                                        arguments: Bundle()
+                                          ..putString('imageUrl',
+                                              _content[index].imgUrl));
+                                  },
                                 ),
                                 // Text(_content[index].imgUrl.toString()),
                                 Container(
