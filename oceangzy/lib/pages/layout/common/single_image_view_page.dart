@@ -55,6 +55,7 @@ class _SingleImageViewPageState extends State<SingleImageViewPage> {
             ),
             Positioned(
               top: MediaQuery.of(context).padding.top,
+              right: 10,
               child: IconButton(
                 icon: Icon(
                   Icons.close,

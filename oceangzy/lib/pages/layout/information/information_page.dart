@@ -14,7 +14,7 @@ class InformationPage extends StatefulWidget {
     return _InformationPageState();
   }
 
-  // _InformationPageState createState<>  => _InformationPageState();
+  // _InformationPageState createState()  => _InformationPageState();
 }
 
 class _InformationPageState extends State<InformationPage> {
@@ -150,11 +150,17 @@ class _InformationPageState extends State<InformationPage> {
                                             fit: BoxFit.cover)),
                                   ),
                                   onTap: () {
+                                    // Navigator.pushNamed(context,
+                                    //     PageName.single_image.toString(),
+                                    //     arguments: Bundle()
+                                    //       ..putString('imageUrl',
+                                    //           _content[index].imgUrl));
+
                                     Navigator.pushNamed(context,
-                                        PageName.single_image.toString(),
+                                        PageName.gallery_image.toString(),
                                         arguments: Bundle()
-                                          ..putString('imageUrl',
-                                              _content[index].imgUrl));
+                                          ..putList('images',
+                                              [_content[index].imgUrl]));
                                   },
                                 ),
                                 // Text(_content[index].imgUrl.toString()),
@@ -202,8 +208,7 @@ class _InformationPageState extends State<InformationPage> {
 
   _freshInformation() async {
     try {
-      Response response = await Dio().get(
-          "http://192.168.10.104:8081/getYouOneInfo",
+      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
           queryParameters: {'page': 0});
       print(response);
       if (response.statusCode == 200) {
@@ -251,8 +256,7 @@ class _InformationPageState extends State<InformationPage> {
   _getInformation(int i) async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get(
-          "http://192.168.10.104:8081/getYouOneInfo",
+      Response response = await Dio().get("http://localhost:8081/getYouOneInfo",
           queryParameters: {'page': i});
       print(response);
       Map map = response.data;

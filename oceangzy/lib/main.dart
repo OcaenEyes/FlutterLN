@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:oceangzy/pages/tab/bottom_tab_bar.dart';
+import 'package:oceangzy/router/page_router.dart';
 
 void main() {
+  PageRouter.setupRoutes();
   runApp(MyApp());
 }
 
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
       home: BottomTabBar(),
+      onGenerateRoute: PageRouter.router.generator,
     );
   }
 }
