@@ -35,7 +35,7 @@ class _BottomTabBarState extends State<BottomTabBar>
     with SingleTickerProviderStateMixin {
   Map<String, dynamic> iconDic = {};
   int _currentIndex = 0;
-  TabController _tabController;
+  // TabController _tabController;
   List<IconList> _iconList;
   List<Widget> tabViewList = List();
   @override
@@ -43,12 +43,12 @@ class _BottomTabBarState extends State<BottomTabBar>
     tabViewList..add(HomePage())..add(InformationPage());
 
     _getIconDic();
-    _tabController = TabController(vsync: this, length: _iconList.length)
-      ..addListener(() {
-        setState(() {
-          _currentIndex = _tabController.index;
-        });
-      });
+    // _tabController = TabController(vsync: this, length: _iconList.length)
+    //   ..addListener(() {
+    //     setState(() {
+    //       _currentIndex = _tabController.index;
+    //     });
+    //   });
     _jsonTest();
     super.initState();
   }
@@ -58,44 +58,44 @@ class _BottomTabBarState extends State<BottomTabBar>
     // TODO: implement build
     return Scaffold(
       body: tabViewList[_currentIndex],
-      // bottomNavigationBar: new BottomNavigationBar(
-      //   backgroundColor: Colors.black,
-      //   items: _iconList.map((item) {
-      //     return BottomNavigationBarItem(
-      //         backgroundColor: Colors.black,
-      //         // icon: Image(
-      //         //   image: NetworkImage(item.iconImage),
-      //         //   width: 24,
-      //         //   height: 24,
-      //         // ),
-      //         icon: Icon(Icons.ac_unit),
-      //         title: Text(
-      //           item.iconName,
-      //           style: TextStyle(color: Color(item.textColor)),
-      //         ));
-      //   }).toList(),
-      //   onTap: _onTapBottomTab,
-      //   currentIndex: _currentIndex,
-      // ),
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.white,
-        color: Colors.black,
-        index: _currentIndex,
-        height: 56,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-          _tabController.animateTo(index,
-              duration: Duration(milliseconds: 100), curve: Curves.ease);
-        },
+      bottomNavigationBar: new BottomNavigationBar(
+        backgroundColor: Colors.black,
         items: _iconList.map((item) {
-          return Icon(
-            Icons.ac_unit,
-            color: Colors.white,
-          );
+          return BottomNavigationBarItem(
+              backgroundColor: Colors.black,
+              // icon: Image(
+              //   image: NetworkImage(item.iconImage),
+              //   width: 24,
+              //   height: 24,
+              // ),
+              icon: Icon(Icons.ac_unit),
+              title: Text(
+                item.iconName,
+                style: TextStyle(color: Color(item.textColor)),
+              ));
         }).toList(),
+        onTap: _onTapBottomTab,
+        currentIndex: _currentIndex,
       ),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   backgroundColor: Colors.white,
+      //   color: Colors.black,
+      //   index: _currentIndex,
+      //   height: 56,
+      //   onTap: (index) {
+      //     setState(() {
+      //       _currentIndex = index;
+      //     });
+      //     _tabController.animateTo(index,
+      //         duration: Duration(milliseconds: 500), curve: Curves.bounceInOut);
+      //   },
+      //   items: _iconList.map((item) {
+      //     return Icon(
+      //       Icons.ac_unit,
+      //       color: Colors.white,
+      //     );
+      //   }).toList(),
+      // ),
     );
   }
 
