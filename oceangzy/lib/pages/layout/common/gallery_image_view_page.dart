@@ -42,6 +42,7 @@ class _GalleryImageViewPageState extends State<GalleryImageViewPage> {
                 },
                 builder: (BuildContext context, int index) {
                   return PhotoViewGalleryPageOptions(
+                    heroAttributes: PhotoViewHeroAttributes(tag: "simple"),
                     imageProvider:
                         NetworkImage(widget.bundle.getList("images")[index]),
                   );

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -156,11 +157,13 @@ class _InformationPageState extends State<InformationPage> {
                                     //       ..putString('imageUrl',
                                     //           _content[index].imgUrl));
 
-                                    Navigator.pushNamed(context,
-                                        PageName.gallery_image.toString(),
-                                        arguments: Bundle()
-                                          ..putList('images',
-                                              [_content[index].imgUrl]));
+                                    Navigator.pushNamed(
+                                      context,
+                                      PageName.gallery_image.toString(),
+                                      arguments: Bundle()
+                                        ..putList(
+                                            'images', [_content[index].imgUrl]),
+                                    );
                                   },
                                 ),
                                 // Text(_content[index].imgUrl.toString()),
@@ -184,7 +187,7 @@ class _InformationPageState extends State<InformationPage> {
               tooltip: "返回顶部",
               onPressed: () {
                 // scrollController 通过 animateTo 方法滚动到某个具体高度
-                // duration 表示动画的时长，curve 表示动画的运行方式，flutter 在 Curves 提供了许多方式
+                // duration 表���动画的时长，curve 表示动画的运行方式，flutter 在 Curves 提供了许多方式
                 _scrollController.animateTo(0.0,
                     duration: Duration(milliseconds: 500),
                     curve: Curves.decelerate);
