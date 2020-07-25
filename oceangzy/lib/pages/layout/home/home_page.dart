@@ -20,7 +20,9 @@ class _HomePageState extends State<HomePage> {
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: Center(
+        body: Container(
+          
+
           child: Text(
             "你好",
             style: TextStyle(color: Colors.white, fontSize: 18),
