@@ -20,7 +20,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
         child: FloatingActionButton(
           child: Text("登录"),
           onPressed: () {
-            Navigator.pushNamed(context, PageName.d_auth.toString());
+            Navigator.pushNamed(context, PageName.login_page.toString());
           },
         ),
       ),
@@ -31,7 +31,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getinfo();
+    // _getinfo();
   }
 
   _getinfo() async {
