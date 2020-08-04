@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:oceangzy/pages/layout/discovery/discovery_page.dart';
 import 'package:oceangzy/pages/layout/information/information_page.dart';
 import 'package:oceangzy/pages/layout/home/home_page.dart';
 import 'package:oceangzy/models/bottomTabIconModel.dart';
@@ -40,7 +41,7 @@ class _BottomTabBarState extends State<BottomTabBar>
   List<Widget> tabViewList = List();
   @override
   void initState() {
-    tabViewList..add(HomePage())..add(InformationPage());
+    tabViewList..add(HomePage())..add(InformationPage())..add(DiscoveryPage());
 
     _getIconDic();
     // _tabController = TabController(vsync: this, length: _iconList.length)
@@ -109,7 +110,7 @@ class _BottomTabBarState extends State<BottomTabBar>
             "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "Discover",
+            "iconName": "Home",
           },
           {
             "id": 1,
@@ -123,7 +124,7 @@ class _BottomTabBarState extends State<BottomTabBar>
             "textColor": 0xFFFFFFFF,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
-            "iconName": "Message",
+            "iconName": "Discover",
           },
           {
             "id": 3,
