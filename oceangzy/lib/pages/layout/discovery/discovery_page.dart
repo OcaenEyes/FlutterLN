@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:oceangzy/router/page_routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DiscoveryPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class DiscoveryPage extends StatefulWidget {
 }
 
 class _DiscoveryPageState extends State<DiscoveryPage> {
+  String _token = "";
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -31,21 +33,16 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _getinfo();
+    _getConf();
   }
 
-  _getinfo() async {
-    try {
-      Response res = await Dio()
-          .get("https://dribbble.com/oauth/authorize", queryParameters: {
-        "client_id":
-            "07d7f74c70cc76f755fb4f8bdc76a8550f8a30d02fbd826fc101ca040f9384ee",
-        "redirect_uri": "http://oceaneyes.top",
-      });
-      print(res);
-      setState(() {});
-    } catch (e) {
-      print(e);
-    }
+  _getConf() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String token = preferences.getString("access_token");
+    print("写入文件测试2");
+    print(token);
+    _token = token;
   }
+
+  _get
 }

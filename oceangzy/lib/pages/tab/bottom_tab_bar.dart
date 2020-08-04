@@ -5,6 +5,7 @@ import 'package:oceangzy/pages/layout/discovery/discovery_page.dart';
 import 'package:oceangzy/pages/layout/information/information_page.dart';
 import 'package:oceangzy/pages/layout/home/home_page.dart';
 import 'package:oceangzy/models/bottomTabIconModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomTabBar extends StatefulWidget {
   @override
@@ -39,6 +40,7 @@ class _BottomTabBarState extends State<BottomTabBar>
   // TabController _tabController;
   List<IconList> _iconList;
   List<Widget> tabViewList = List();
+  String _token = "";
   @override
   void initState() {
     tabViewList..add(HomePage())..add(InformationPage())..add(DiscoveryPage());
@@ -51,6 +53,7 @@ class _BottomTabBarState extends State<BottomTabBar>
     //     });
     //   });
     _jsonTest();
+    _getConf();
     super.initState();
   }
 
@@ -154,5 +157,13 @@ class _BottomTabBarState extends State<BottomTabBar>
   _onTapBottomTab(int position) {
     _currentIndex = position;
     setState(() {});
+  }
+
+  _getConf() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String token = preferences.getString("access_token");
+    print("写入文件测试");
+    print(token);
+    _token = token;
   }
 }
