@@ -43,6 +43,4 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
     print(token);
     _token = token;
   }
-
-  _get
 }
