@@ -1,6 +1,7 @@
 import 'package:oceangzy/pages/layout/discovery/discovery_page.dart';
 import 'package:oceangzy/pages/layout/login/login_page.dart';
 import 'package:oceangzy/pages/layout/login/oauth/d_oauth_page.dart';
+import 'package:oceangzy/pages/layout/login/register_page.dart';
 import 'package:oceangzy/pages/tab/bottom_tab_bar.dart';
 import 'package:oceangzy/pages/layout/information/information_page.dart';
 import 'package:oceangzy/pages/layout/home/home_page.dart';
@@ -18,6 +19,7 @@ enum PageName {
   gallery_image,
   discovery_page,
   login_page,
+  register_page,
   d_auth,
 }
 
@@ -35,4 +37,5 @@ final Map<PageName, PageBuilder> pageRoutes = {
       PageBuilder(builderFunc: (bundle) => DiscoveryPage()),
   PageName.d_auth: PageBuilder(builderFunc: (bundle) => DOauthPage()),
   PageName.login_page: PageBuilder(builderFunc: (bundle) => LoginPage()),
+  PageName.register_page: PageBuilder(builderFunc: (bundle) => RegisterPage()),
 };

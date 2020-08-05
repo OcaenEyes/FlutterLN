@@ -6,14 +6,16 @@ import 'package:oceangzy/router/page_builder.dart';
 import 'package:oceangzy/router/page_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _RegisterPageState();
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   FocusNode passNode = FocusNode();
-  FocusNode phoneNode = FocusNode();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
   @override
@@ -31,7 +33,8 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: <Widget>[
           bg(),
-          login(context, phoneNode, passNode, phoneController, passController)
+          back(context),
+          register(context, passNode, phoneController, passController)
         ],
       ),
     );
@@ -48,7 +51,7 @@ dynamic bg() {
   );
 }
 
-Widget login(context, phoneNode, passNode, phoneController, passController) {
+Widget register(context, passNode, phoneController, passController) {
   return Container(
     width: MediaQuery.of(context).size.width,
     margin: EdgeInsets.only(top: 240),
@@ -58,29 +61,47 @@ Widget login(context, phoneNode, passNode, phoneController, passController) {
       padding: EdgeInsets.fromLTRB(23, 18, 23, 23),
       child: ListView(
         children: <Widget>[
-          loginTitle(),
-          loginForm(
-              context, phoneNode, passNode, phoneController, passController),
-          forgetPass(),
-          register(context)
+          registerTitle(),
+          registerForm(context, passNode, phoneController, passController),
         ],
       ),
     ),
   );
 }
 
-dynamic loginTitle() {
+dynamic back(context) {
+  return Padding(
+    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+    child: SizedBox(
+      height: kToolbarHeight,
+      child: Row(
+        children: <Widget>[
+          GestureDetector(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(Icons.arrow_back_ios, color: Colors.black),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+dynamic registerTitle() {
   return Padding(
     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
     child: Text(
-      "登录",
+      "注册",
       style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
     ),
   );
 }
 
-dynamic loginForm(
-    context, phoneNode, passNode, phoneController, passController) {
+dynamic registerForm(context, passNode, phoneController, passController) {
   return Container(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Column(
@@ -93,9 +114,8 @@ dynamic loginForm(
                 controller: phoneController,
                 style: TextStyle(color: Colors.black),
                 keyboardType: TextInputType.number,
+                autofocus: true,
                 // maxLength: 11,
-                // autofocus: true,
-                focusNode: phoneNode,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: '请输入手机号',
@@ -110,8 +130,6 @@ dynamic loginForm(
               style: TextStyle(color: Colors.black),
               obscureText: true,
               controller: passController,
-              focusNode: passNode,
-              // maxLength: 11,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '请输入密码',
@@ -121,92 +139,38 @@ dynamic loginForm(
           ),
           Padding(
             padding: EdgeInsets.only(top: 20),
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       print("GestureDetector 被电击");
-            //       if (phoneController.text == '123456' &&
-            //           passController.text == '123456') {
-            //         Navigator.pushNamed(context, PageName.bottom_tab.toString(),
-            //             arguments: null);
-            //       }
-            //     },
-            //     child: Container(
-            //       height: 56,
-            //       width: 340,
-            //       alignment: Alignment.center,
-            //       child: Text(
-            //         '登录',
-            //         style: TextStyle(
-            //           fontSize: 15,
-            //           color: Colors.white,
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
-
-            //       decoration:
-            //           BoxDecoration(
-            //             color:Colors.black ,
-            //             borderRadius: BorderRadius.circular(6)
-            //             ),
-            //     ),
-            //   ),
-
             child: MaterialButton(
               onPressed: () async {
-                print("被点击");
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://localhost:8080/login",
+                response = await dio.post("http://localhost:8080/register",
                     queryParameters: {
                       "password": passController.text,
                       "phone": phoneController.text
                     });
-                print(response.data);
+                print(response.data.toString());
                 if (response.data["code"] == "200") {
                   userInfo = response.data["userInfo"];
-                  print(userInfo);
                   SharedPreferences sharedPreferences =
                       await SharedPreferences.getInstance();
                   sharedPreferences.setString("userInfo", userInfo.toString());
-                  print("打印loginpage");
+                  print("打印registerpage");
                   print(sharedPreferences.getString("userInfo"));
 
                   Navigator.pushNamedAndRemoveUntil(
                       context, PageName.bottom_tab.toString(), (route) => false,
                       arguments: Bundle()..putMap("userInfo", userInfo));
-                } else if (response.data["code"] == "101") {
+                } else if (response.data["code"] == "103") {
                   Fluttertoast.showToast(
-                      msg: "账号不存在", fontSize: 12, gravity: ToastGravity.TOP);
-                  phoneController.text = "";
-                  passController.text = "";
-                  if (passNode.hasFocus) {
-                    passNode.unfocus();
-                    FocusScope.of(context).requestFocus(phoneNode);
-                  }
-                } else if (response.data["code"] == "102") {
-                  Fluttertoast.showToast(
-                      msg: "账号密码错误", fontSize: 12, gravity: ToastGravity.TOP);
-                  phoneController.text = "";
-                  passController.text = "";
-                  if (passNode.hasFocus) {
-                    passNode.unfocus();
-                    FocusScope.of(context).requestFocus(phoneNode);
-                  }
+                      msg: "账号已存在", fontSize: 12, gravity: ToastGravity.TOP);
                 } else {
                   Fluttertoast.showToast(
-                      msg: "登录失败,请重试", fontSize: 12, gravity: ToastGravity.TOP);
-
-                  phoneController.text = "";
-                  passController.text = "";
-                  if (passNode.hasFocus) {
-                    passNode.unfocus();
-                    FocusScope.of(context).requestFocus(phoneNode);
-                  }
+                      msg: "注册失败,请重试", fontSize: 12, gravity: ToastGravity.TOP);
                 }
               }, //since this is only a UI app
               child: Text(
-                '登录',
+                '注册',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.white,
@@ -223,43 +187,4 @@ dynamic loginForm(
           )
         ],
       ));
-}
-
-dynamic register(context) {
-  return Padding(
-    padding: EdgeInsets.only(top: 20),
-    child: Center(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, PageName.register_page.toString(),
-              arguments: null);
-        },
-        child: RichText(
-          text: TextSpan(children: [
-            TextSpan(
-                text: "没有账号？",
-                style: TextStyle(color: Colors.black45, fontSize: 15)),
-            TextSpan(
-                text: "点击注册",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold)),
-          ]),
-        ),
-      ),
-    ),
-  );
-}
-
-dynamic forgetPass() {
-  return Padding(
-    padding: EdgeInsets.only(top: 30),
-    child: Center(
-      child: Text(
-        "忘记密码？",
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
 }
