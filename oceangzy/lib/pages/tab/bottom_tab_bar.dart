@@ -5,6 +5,7 @@ import 'package:oceangzy/pages/layout/discovery/discovery_page.dart';
 import 'package:oceangzy/pages/layout/information/information_page.dart';
 import 'package:oceangzy/pages/layout/home/home_page.dart';
 import 'package:oceangzy/models/bottomTabIconModel.dart';
+import 'package:oceangzy/pages/layout/mine/mine_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomTabBar extends StatefulWidget {
@@ -43,7 +44,11 @@ class _BottomTabBarState extends State<BottomTabBar>
   String _token = "";
   @override
   void initState() {
-    tabViewList..add(HomePage())..add(InformationPage())..add(DiscoveryPage());
+    tabViewList
+      ..add(HomePage())
+      ..add(InformationPage())
+      ..add(DiscoveryPage())
+      ..add(MinePage());
 
     _getIconDic();
     // _tabController = TabController(vsync: this, length: _iconList.length)
@@ -63,16 +68,19 @@ class _BottomTabBarState extends State<BottomTabBar>
     return Scaffold(
       body: tabViewList[_currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
-              backgroundColor: Colors.black,
+              // backgroundColor: Colors.black,
               // icon: Image(
               //   image: NetworkImage(item.iconImage),
               //   width: 24,
               //   height: 24,
               // ),
-              icon: Icon(Icons.ac_unit),
+              icon: Icon(
+                Icons.ac_unit,
+                color: Color(item.textColor),
+              ),
               title: Text(
                 item.iconName,
                 style: TextStyle(color: Color(item.textColor)),
@@ -110,28 +118,33 @@ class _BottomTabBarState extends State<BottomTabBar>
         "iconList": [
           {
             "id": 0,
-            "textColor": 0xFFFFFFFF,
+            // "textColor": 0xFFFFFFFF,
+            "textColor": 0xFF000000,
+
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "Home",
           },
           {
             "id": 1,
-            "textColor": 0xFFFFFFFF,
+            // "textColor": 0xFFFFFFFF,
+            "textColor": 0xFF000000,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "Daliy",
           },
           {
             "id": 2,
-            "textColor": 0xFFFFFFFF,
+            // "textColor": 0xFFFFFFFF,
+            "textColor": 0xFF000000,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "Discover",
           },
           {
             "id": 3,
-            "textColor": 0xFFFFFFFF,
+            // "textColor": 0xFFFFFFFF,
+            "textColor": 0xFF000000,
             "iconImage":
                 "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
             "iconName": "Mine",

@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: Container(
+        body: Center(
           child: Text(
             "你好",
             style: TextStyle(color: Colors.white, fontSize: 18),

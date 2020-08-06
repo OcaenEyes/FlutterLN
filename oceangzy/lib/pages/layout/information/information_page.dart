@@ -78,12 +78,12 @@ class _InformationPageState extends State<InformationPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         title: Text(
           "Daliy",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
       ),
       backgroundColor: Color(0xFF000000),
       body: _content == null || _content.length == 0

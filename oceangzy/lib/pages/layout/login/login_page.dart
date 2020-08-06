@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oceangzy/models/userInfoModel.dart';
 import 'package:oceangzy/router/page_builder.dart';
 import 'package:oceangzy/router/page_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -162,19 +165,23 @@ dynamic loginForm(
                       "password": passController.text,
                       "phone": phoneController.text
                     });
-                print(response.data);
+
                 if (response.data["code"] == "200") {
-                  userInfo = response.data["userInfo"];
-                  print(userInfo);
+                  Map _map = response.data["userInfo"];
                   SharedPreferences sharedPreferences =
                       await SharedPreferences.getInstance();
-                  sharedPreferences.setString("userInfo", userInfo.toString());
-                  print("打印loginpage");
+
+                  sharedPreferences.setString(
+                      "userInfo", json.encode(_map).toString());
+
+                  print("login test test test");
                   print(sharedPreferences.getString("userInfo"));
 
                   Navigator.pushNamedAndRemoveUntil(
-                      context, PageName.bottom_tab.toString(), (route) => false,
-                      arguments: Bundle()..putMap("userInfo", userInfo));
+                    context,
+                    PageName.bottom_tab.toString(),
+                    (route) => false,
+                  );
                 } else if (response.data["code"] == "101") {
                   Fluttertoast.showToast(
                       msg: "账号不存在", fontSize: 12, gravity: ToastGravity.TOP);
