@@ -13,10 +13,12 @@ class _IntroducePageState extends State<IntroducePage> {
   var pageDecoration = new PageDecoration(
     titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
     bodyTextStyle: TextStyle(fontSize: 19.0),
-    descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+    descriptionPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
     pageColor: Colors.white,
     imagePadding: EdgeInsets.zero,
+
   );
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -43,7 +45,7 @@ class _IntroducePageState extends State<IntroducePage> {
           decoration: pageDecoration,
           image: Align(
             child: Image.asset(
-              "assets/images/1.jpg",
+              "assets/images/image_01.png",
               fit: BoxFit.cover,
             ),
             alignment: Alignment.bottomCenter,
@@ -54,12 +56,26 @@ class _IntroducePageState extends State<IntroducePage> {
           body:
               "Download the Stockpile app and master the market with our mini-lesson.",
           decoration: pageDecoration,
+          image: Align(
+            child: Image.asset(
+              "assets/images/image_02.jpg",
+              fit: BoxFit.cover,
+            ),
+            alignment: Alignment.bottomCenter,
+          ),
         ),
         PageViewModel(
           title: "Kids and teens",
           body:
               "Kids and teens can track their stocks 24/7 and place trades that you approve.",
           decoration: pageDecoration,
+          image: Align(
+            child: Image.asset(
+              "assets/images/image_03.jpg",
+              fit: BoxFit.cover,
+            ),
+            alignment: Alignment.bottomCenter,
+          ),
         ),
         PageViewModel(
           title: "Another title page",
@@ -78,6 +94,13 @@ class _IntroducePageState extends State<IntroducePage> {
             ),
           ),
           decoration: pageDecoration,
+          image: Align(
+            child: Image.asset(
+              "assets/images/image_04.jpg",
+              fit: BoxFit.cover,
+            ),
+            alignment: Alignment.bottomCenter,
+          ),
         ),
         PageViewModel(
           title: "Title of last page",
@@ -90,6 +113,13 @@ class _IntroducePageState extends State<IntroducePage> {
             ],
           ),
           decoration: pageDecoration,
+          image: Align(
+            child: Image.asset(
+              "assets/images/image_02.jpg",
+              fit: BoxFit.cover,
+            ),
+            alignment: Alignment.bottomCenter,
+          ),
         ),
       ],
       dotsDecorator: DotsDecorator(
