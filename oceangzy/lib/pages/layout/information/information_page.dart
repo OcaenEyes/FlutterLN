@@ -212,7 +212,7 @@ class _InformationPageState extends State<InformationPage> {
 
   _freshInformation() async {
     try {
-      Response response = await Dio().get("http://localhost:8080/getYouOneInfo",
+      Response response = await Dio().get(Address.dev_base_url+"/getYouOneInfo",
           queryParameters: {'page': 0});
       print(response);
       if (response.statusCode == 200) {

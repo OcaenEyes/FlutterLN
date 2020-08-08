@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oceangzy/pages/layout/launch/launch_page.dart';
 import 'package:oceangzy/pages/tab/bottom_tab_bar.dart';
+import 'package:oceangzy/pages/layout/introduce/introduce_page.dart';
 import 'package:oceangzy/router/page_router.dart';
 
 void main() {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: LaunchPage(),
+      home: IntroducePage(),
       onGenerateRoute: PageRouter.router.generator,
     );
   }
