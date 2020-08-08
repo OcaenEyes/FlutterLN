@@ -42,7 +42,10 @@ class _IntroducePageState extends State<IntroducePage> {
               "Instead of having to buy an entire share, invest any amount you want.",
           decoration: pageDecoration,
           image: Align(
-            child: Image.asset("assets/images/1.jpg"),
+            child: Image.asset(
+              "assets/images/1.jpg",
+              fit: BoxFit.cover,
+            ),
             alignment: Alignment.bottomCenter,
           ),
         ),
