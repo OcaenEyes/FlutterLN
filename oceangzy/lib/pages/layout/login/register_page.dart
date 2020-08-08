@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceangzy/models/userInfoModel.dart';
 import 'package:oceangzy/router/page_builder.dart';
 import 'package:oceangzy/router/page_routes.dart';
+import 'package:oceangzy/util/adress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -147,7 +148,7 @@ dynamic registerForm(context, passNode, phoneController, passController) {
                 Dio dio = new Dio();
                 Response response;
                 var userInfo;
-                response = await dio.post("http://localhost:8080/register",
+                response = await dio.post(Address.dev_base_url + "/register",
                     queryParameters: {
                       "password": passController.text,
                       "phone": phoneController.text

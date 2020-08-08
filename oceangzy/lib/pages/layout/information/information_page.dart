@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oceangzy/models/youoneInformationModel.dart';
 import 'package:oceangzy/router/page_builder.dart';
 import 'package:oceangzy/router/page_routes.dart';
+import 'package:oceangzy/util/adress.dart';
 
 class InformationPage extends StatefulWidget {
   @override
@@ -96,10 +97,10 @@ class _InformationPageState extends State<InformationPage> {
                 itemCount: _content.length,
                 controller: _scrollController,
                 itemBuilder: (context, index) {
-                  return index == _content.length
-                      ? _loadingMore
+                  return index == _content.length - 1
+                      ? _loadingMore()
                       : Container(
-                          width: MediaQuery.of(context).size.width - 20,
+                          // width: MediaQuery.of(context).size.width - 20,
                           padding: EdgeInsets.fromLTRB(20, 8, 20, 12),
                           // height: 240,
                           child: Container(
@@ -259,7 +260,8 @@ class _InformationPageState extends State<InformationPage> {
   _getInformation(int i) async {
     try {
       FormData formaData = new FormData.fromMap({});
-      Response response = await Dio().get("http://localhost:8080/getYouOneInfo",
+      Response response = await Dio().get(
+          Address.dev_base_url + "/getYouOneInfo",
           queryParameters: {'page': i});
       print(response);
       Map map = response.data;

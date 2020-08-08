@@ -18,7 +18,7 @@ class _LaunchPageState extends State<LaunchPage> {
 
   _getconf() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.remove("userInfo");
+    // sharedPreferences.remove("userInfo");
     userInfo = sharedPreferences.getString("userInfo");
     print("打印launchpage");
     print(userInfo);
