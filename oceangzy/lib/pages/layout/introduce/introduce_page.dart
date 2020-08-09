@@ -12,18 +12,23 @@ class IntroducePage extends StatefulWidget {
 class _IntroducePageState extends State<IntroducePage> {
   var introKey = GlobalKey<IntroductionScreenState>();
   var pageDecoration = new PageDecoration(
-    titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
-    bodyTextStyle: TextStyle(fontSize: 19.0),
-    descriptionPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-    pageColor: Colors.white,
-    imagePadding: EdgeInsets.zero,
-  );
+      titleTextStyle: TextStyle(
+          fontSize: 28.0, fontWeight: FontWeight.w700, letterSpacing: 4),
+      bodyTextStyle: TextStyle(
+        fontSize: 20.0,
+        letterSpacing: 10,
+        height: 2,
+      ),
+      descriptionPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+      pageColor: Colors.white,
+      imagePadding: EdgeInsets.zero,
+      titlePadding: EdgeInsets.fromLTRB(0, 20, 0, 20));
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getConf();
+    _setConf();
   }
 
   @override
@@ -32,20 +37,9 @@ class _IntroducePageState extends State<IntroducePage> {
     super.dispose();
   }
 
-  _getConf() async {
+  _setConf() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    print("APP启动");
-    print(sharedPreferences.getString('introduce_show'));
-    if (sharedPreferences.getString('introduce_show') == "false") {
-      if (sharedPreferences.getString("userInfo") != null) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, PageName.bottom_tab.toString(), (route) => false);
-      } else {
-        Navigator.pushNamedAndRemoveUntil(
-            context, PageName.login_page.toString(), (route) => false);
-      }
-      sharedPreferences.setString('introduce_show', "false");
-    }
+    sharedPreferences.setString('introduce_show', "false");
   }
 
   @override
@@ -54,23 +48,28 @@ class _IntroducePageState extends State<IntroducePage> {
     return IntroductionScreen(
       done: Text(
         "进入",
-        style: TextStyle(fontSize: 14.0),
+        style: TextStyle(fontSize: 16.0),
       ),
-      onDone: () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, PageName.bottom_tab.toString(), (route) => false);
+      onDone: () async {
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        (sharedPreferences.getString("userInfo") != null)
+            ? Navigator.pushNamedAndRemoveUntil(
+                context, PageName.bottom_tab.toString(), (route) => false)
+            : Navigator.pushNamedAndRemoveUntil(
+                context, PageName.login_page.toString(), (route) => false);
       },
       // showSkipButton: true,
       // skip: Text("跳过",style: TextStyle(fontSize: 14.0),),
       next: Icon(
         Icons.arrow_forward,
-        size: 18,
+        size: 20,
       ),
       pages: <PageViewModel>[
         PageViewModel(
-          title: "Fractional shares",
-          body:
-              "Instead of having to buy an entire share, invest any amount you want.",
+          title: "OCEAN TEAM",
+          body: "木之就规矩，在梓匠轮舆。 "
+              "人之能为人，由腹有诗书。",
           decoration: pageDecoration,
           image: Container(
             child: Image.asset(
@@ -81,9 +80,9 @@ class _IntroducePageState extends State<IntroducePage> {
           ),
         ),
         PageViewModel(
-          title: "Learn as you go",
-          body:
-              "Download the Stockpile app and master the market with our mini-lesson.",
+          title: "OCEAN TEAM",
+          body: "诗书勤乃有，不勤腹空虚。 "
+              "欲知学之力，贤愚同一初。",
           decoration: pageDecoration,
           image: Container(
             child: Image.asset(
@@ -94,9 +93,9 @@ class _IntroducePageState extends State<IntroducePage> {
           ),
         ),
         PageViewModel(
-          title: "Kids and teens",
-          body:
-              "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+          title: "OCEAN GZY",
+          body: "少长聚嬉戏，不殊同队鱼。 "
+              "年至十二三，头角稍相疏。",
           decoration: pageDecoration,
           image: Container(
             child: Image.asset(
@@ -107,21 +106,9 @@ class _IntroducePageState extends State<IntroducePage> {
           ),
         ),
         PageViewModel(
-          title: "Another title page",
-          body: "Another beautiful body text for this example onboarding",
-          footer: RaisedButton(
-            onPressed: () {
-              introKey.currentState?.animateScroll(0);
-            },
-            child: const Text(
-              'FooButton',
-              style: TextStyle(color: Colors.white),
-            ),
-            color: Colors.lightBlue,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
+          title: "OCEAN GZY",
+          body: "金璧虽重宝，费用难贮储。 "
+              "学问藏之身，身在则有余。",
           decoration: pageDecoration,
           image: Container(
             child: Image.asset(
@@ -132,15 +119,9 @@ class _IntroducePageState extends State<IntroducePage> {
           ),
         ),
         PageViewModel(
-          title: "Title of last page",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text("Click on ", style: TextStyle(fontSize: 19.0)),
-              Icon(Icons.edit),
-              Text(" to edit a post", style: TextStyle(fontSize: 19.0)),
-            ],
-          ),
+          title: "OCEAN GZY",
+          body: "灯火稍可亲，简编可卷舒。 "
+              "岂不旦夕念，为尔惜居诸。",
           decoration: pageDecoration,
           image: Container(
             child: Image.asset(
@@ -148,6 +129,19 @@ class _IntroducePageState extends State<IntroducePage> {
               fit: BoxFit.cover,
             ),
 //            alignment: Alignment.bottomCenter,
+          ),
+          footer: RaisedButton(
+            onPressed: () {
+              introKey.currentState?.animateScroll(0);
+            },
+            child: const Text(
+              '读书城南',
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.grey,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
           ),
         ),
       ],
