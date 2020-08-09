@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:oceangzy/router/page_routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroducePage extends StatefulWidget {
   @override
@@ -16,8 +17,36 @@ class _IntroducePageState extends State<IntroducePage> {
     descriptionPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
     pageColor: Colors.white,
     imagePadding: EdgeInsets.zero,
-
   );
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getConf();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  _getConf() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print("APP启动");
+    print(sharedPreferences.getString('introduce_show'));
+    if (sharedPreferences.getString('introduce_show') == "false") {
+      if (sharedPreferences.getString("userInfo") != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, PageName.bottom_tab.toString(), (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, PageName.login_page.toString(), (route) => false);
+      }
+      sharedPreferences.setString('introduce_show', "false");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

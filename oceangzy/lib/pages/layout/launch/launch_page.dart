@@ -56,7 +56,7 @@ class _LaunchPageState extends State<LaunchPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Image.asset(
-              'assets/images/3.jpg',
+              'assets/images/2.jpg',
               fit: BoxFit.cover,
             )),
         Positioned(

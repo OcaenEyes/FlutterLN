@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,11 +11,12 @@ class HomePage extends StatefulWidget {
     return _HomePageState();
   }
 
-  // _InformationPageState createState<>  => _InformationPageState();
+// _InformationPageState createState<>  => _InformationPageState();
 }
 
 class _HomePageState extends State<HomePage> {
   String _token = "";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,12 +38,27 @@ class _HomePageState extends State<HomePage> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Center(
-          child: Text(
-            "你好",
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          ),
+//        appBar: AppBar(),
+//        backgroundColor: Colors.black,
+        body: ListView(
+          children: <Widget>[
+            Container(
+              child: Swiper(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Image.asset(
+                    "assets/images/image_02.jpg",
+                    fit: BoxFit.fill,
+                  );
+                },
+//          pagination: SwiperPagination(),
+//          control: SwiperControl(),
+                layout: SwiperLayout.TINDER,
+                itemWidth: MediaQuery.of(context).size.width - 20,
+                itemHeight: 220,
+              ),
+            ),
+          ],
         ),
       ),
     );
