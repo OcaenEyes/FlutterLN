@@ -43,12 +43,12 @@ class _IntroducePageState extends State<IntroducePage> {
           body:
               "Instead of having to buy an entire share, invest any amount you want.",
           decoration: pageDecoration,
-          image: Align(
+          image: Container(
             child: Image.asset(
               "assets/images/image_01.png",
               fit: BoxFit.cover,
             ),
-            alignment: Alignment.bottomCenter,
+//            alignment: Alignment.bottomCenter,
           ),
         ),
         PageViewModel(
@@ -56,12 +56,12 @@ class _IntroducePageState extends State<IntroducePage> {
           body:
               "Download the Stockpile app and master the market with our mini-lesson.",
           decoration: pageDecoration,
-          image: Align(
+          image: Container(
             child: Image.asset(
               "assets/images/image_02.jpg",
               fit: BoxFit.cover,
             ),
-            alignment: Alignment.bottomCenter,
+//            alignment: Alignment.bottomCenter,
           ),
         ),
         PageViewModel(
@@ -69,12 +69,12 @@ class _IntroducePageState extends State<IntroducePage> {
           body:
               "Kids and teens can track their stocks 24/7 and place trades that you approve.",
           decoration: pageDecoration,
-          image: Align(
+          image: Container(
             child: Image.asset(
               "assets/images/image_03.jpg",
               fit: BoxFit.cover,
             ),
-            alignment: Alignment.bottomCenter,
+//            alignment: Alignment.bottomCenter,
           ),
         ),
         PageViewModel(
@@ -94,12 +94,12 @@ class _IntroducePageState extends State<IntroducePage> {
             ),
           ),
           decoration: pageDecoration,
-          image: Align(
+          image: Container(
             child: Image.asset(
               "assets/images/image_04.jpg",
               fit: BoxFit.cover,
             ),
-            alignment: Alignment.bottomCenter,
+//            alignment: Alignment.bottomCenter,
           ),
         ),
         PageViewModel(
@@ -113,12 +113,12 @@ class _IntroducePageState extends State<IntroducePage> {
             ],
           ),
           decoration: pageDecoration,
-          image: Align(
+          image: Container(
             child: Image.asset(
               "assets/images/image_02.jpg",
               fit: BoxFit.cover,
             ),
-            alignment: Alignment.bottomCenter,
+//            alignment: Alignment.bottomCenter,
           ),
         ),
       ],
