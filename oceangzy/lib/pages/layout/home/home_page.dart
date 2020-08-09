@@ -44,10 +44,12 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Container(
               child: Swiper(
-                itemCount: 5,
+                autoplay: true,
+                autoplayDelay: 5000,
+                itemCount: 4,
                 itemBuilder: (context, index) {
                   return Image.asset(
-                    "assets/images/image_02.jpg",
+                    "assets/images/image_0" + (index + 1).toString() + ".jpg",
                     fit: BoxFit.fill,
                   );
                 },

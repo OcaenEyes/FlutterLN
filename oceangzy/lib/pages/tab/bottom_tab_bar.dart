@@ -71,16 +71,16 @@ class _BottomTabBarState extends State<BottomTabBar>
         // backgroundColor: Colors.black,
         items: _iconList.map((item) {
           return BottomNavigationBarItem(
-              // backgroundColor: Colors.black,
-              // icon: Image(
-              //   image: NetworkImage(item.iconImage),
-              //   width: 24,
-              //   height: 24,
-              // ),
-              icon: Icon(
-                Icons.ac_unit,
-                color: Color(item.textColor),
-              ),
+//               backgroundColor: Colors.black,
+               icon: Image(
+                 image: AssetImage(item.iconImage),
+                 width: 24,
+                 height: 24,
+               ),
+//              icon: Icon(
+//                Icons.ac_unit,
+//                color: Color(item.textColor),
+//              ),
               title: Text(
                 item.iconName,
                 style: TextStyle(color: Color(item.textColor)),
@@ -122,7 +122,7 @@ class _BottomTabBarState extends State<BottomTabBar>
             "textColor": 0xFF000000,
 
             "iconImage":
-                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+                "assets/images/home.png",
             "iconName": "Home",
           },
           {
@@ -130,7 +130,7 @@ class _BottomTabBarState extends State<BottomTabBar>
             // "textColor": 0xFFFFFFFF,
             "textColor": 0xFF000000,
             "iconImage":
-                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+                "assets/images/star.png",
             "iconName": "Daliy",
           },
           {
@@ -138,7 +138,7 @@ class _BottomTabBarState extends State<BottomTabBar>
             // "textColor": 0xFFFFFFFF,
             "textColor": 0xFF000000,
             "iconImage":
-                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+                "assets/images/zx.png",
             "iconName": "Discover",
           },
           {
@@ -146,7 +146,7 @@ class _BottomTabBarState extends State<BottomTabBar>
             // "textColor": 0xFFFFFFFF,
             "textColor": 0xFF000000,
             "iconImage":
-                "http://sc.admin5.com/uploads/allimg/100202/111QGU1-7.png",
+                "assets/images/mine.png",
             "iconName": "Mine",
           }
         ]

@@ -74,7 +74,7 @@ class _IntroducePageState extends State<IntroducePage> {
           decoration: pageDecoration,
           image: Container(
             child: Image.asset(
-              "assets/images/image_01.png",
+              "assets/images/image_01.jpg",
               fit: BoxFit.cover,
             ),
 //            alignment: Alignment.bottomCenter,

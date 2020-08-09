@@ -49,7 +49,7 @@ dynamic bg() {
   return Container(
     decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/3.jpg'),
+            image: AssetImage('assets/images/image_03.jpg'),
             fit: BoxFit.fitWidth,
             alignment: Alignment.topCenter)),
   );
