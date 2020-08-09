@@ -13,14 +13,14 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  var _introduceShow;
   _getConf() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     print("APP启动");
     print(sharedPreferences.getString('introduce_show'));
-    _introduceShow = sharedPreferences.getString('introduce_show');
-
+    String _introduceShow = sharedPreferences.getString('introduce_show');
+    return _introduceShow;
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,7 +43,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home:_introduceShow=="false" ? LoginPage(): LaunchPage(),
+      home: _getConf()
+
+
+          == "false" ? LoginPage() : LaunchPage(),
       onGenerateRoute: PageRouter.router.generator,
     );
   }
