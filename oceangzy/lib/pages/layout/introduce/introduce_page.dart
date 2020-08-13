@@ -16,13 +16,13 @@ class _IntroducePageState extends State<IntroducePage> {
           fontSize: 28.0, fontWeight: FontWeight.w700, letterSpacing: 4),
       bodyTextStyle: TextStyle(
         fontSize: 20.0,
-        letterSpacing: 10,
+        letterSpacing: 8,
         height: 2,
       ),
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
       pageColor: Colors.white,
       imagePadding: EdgeInsets.zero,
-      titlePadding: EdgeInsets.fromLTRB(0, 20, 0, 20));
+      titlePadding: EdgeInsets.fromLTRB(0, 20, 0, 10));
 
   @override
   void initState() {

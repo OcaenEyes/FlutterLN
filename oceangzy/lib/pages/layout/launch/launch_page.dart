@@ -47,11 +47,6 @@ class _LaunchPageState extends State<LaunchPage> {
     });
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
