@@ -38,7 +38,9 @@ for the formatted Markdown view in the demo.
 """;
 
 class BasicMarkdownDemo extends StatefulWidget implements MarkdownDemoWidget {
-  const BasicMarkdownDemo({Key? key}) : super(key: key);
+  final String? writedata;
+  const BasicMarkdownDemo({Key? key, required this.writedata})
+      : super(key: key);
 
   static const String _title = 'Basic Markdown Demo';
 
@@ -50,7 +52,7 @@ class BasicMarkdownDemo extends StatefulWidget implements MarkdownDemoWidget {
       'have on basic and extended Markdown tagged elements.';
 
   @override
-  Future<String> get data => rootBundle.loadString('assets/test.md');
+  Future<String> get data => Future<String>.value(writedata);
 
   @override
   Future<String> get notes => Future<String>.value(_notes);
